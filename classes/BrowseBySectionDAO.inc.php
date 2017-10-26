@@ -22,6 +22,7 @@ class BrowseBySectionDAO extends SectionDAO {
 	public $settingNames = array(
 		'browseByEnabled',
 		'browseByPath',
+		'browseByPerPage',
 		'browseByDescription'
 	);
 

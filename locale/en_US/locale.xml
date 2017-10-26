@@ -23,6 +23,8 @@
 	<message key="plugins.generic.browseBySection.enableBrowsing">Enable an archive of all submissions published in this section.</message>
 	<message key="plugins.generic.browseBySection.browseByPathLabel">Section URL Path</message>
 	<message key="plugins.generic.browseBySection.browseByPathDescription">Customize the URL path on your site where readers can browse this section archive. It may only contain letters and numbers. Use hypens (-) instead of spaces. Example: book-reviews.</message>
+	<message key="plugins.generic.browseBySection.browseByPerPageLabel">Items Per Page</message>
+	<message key="plugins.generic.browseBySection.browseByPerPageDescription">How many items should be displayed per page on your section archive.</message>
 	<message key="plugins.generic.browseBySection.browseByDescriptionLabel">Section Archive Description</message>
 
 	<!-- Section Navigation Menus -->

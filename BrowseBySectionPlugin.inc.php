@@ -16,6 +16,7 @@ import('lib.pkp.classes.plugins.GenericPlugin');
 import('plugins.generic.browseBySection.classes.SectionPublishedArticlesDAO');
 import('plugins.generic.browseBySection.classes.BrowseBySectionDAO');
 
+define('BROWSEBYSECTION_DEFAULT_PER_PAGE', 30);
 define('BROWSEBYSECTION_NMI_TYPE', 'BROWSEBYSECTION_NMI_');
 
 class BrowseBySectionPlugin extends GenericPlugin {
@@ -149,6 +150,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 
 		$sectionForm->setData('browseByEnabled', $request->getUserVar('browseByEnabled'));
 		$sectionForm->setData('browseByPath', $request->getUserVar('browseByPath'));
+		$sectionForm->setData('browseByPerPage', $request->getUserVar('browseByPerPage'));
 		$sectionForm->setData('browseByDescription', $request->getUserVar('browseByDescription'));
 	}
 
@@ -176,6 +178,12 @@ class BrowseBySectionPlugin extends GenericPlugin {
 		}
 		$browseByPath =	preg_replace('/[^A-Za-z0-9-_]/', '', str_replace(' ', '-', $browseByPath));
 
+		// Force a valid browseByPerPage
+		$browseByPerPage = $sectionForm->getData('browseByPerPage') ? $sectionForm->getData('browseByPerPage') : '';
+		if (!ctype_digit($browseByPerPage)) {
+			$browseByPerPage = null;
+		}
+
 		$sectionSettings = array(
 			array(
 				'name' => 'browseByEnabled',
@@ -188,13 +196,16 @@ class BrowseBySectionPlugin extends GenericPlugin {
 				'type' => 'string'
 			),
 			array(
+				'name' => 'browseByPerPage',
+				'value' => $browseByPerPage,
+				'type' => 'int'
+			),
+			array(
 				'name' => 'browseByDescription',
 				'value' => $sectionForm->getData('browseByDescription'),
 				'type' => 'string'
 			),
 		);
-
-		$sectionForm->addError('browseByPath', 'This is wrong');
 
 		$browseBySectionDao = DAORegistry::getDAO('BrowseBySectionDAO');
 		$browseBySectionDao->insertSectionSettings($section->getId(), $sectionSettings);

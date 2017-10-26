@@ -15,8 +15,6 @@
 
 import('classes.handler.Handler');
 
-define('BROWSEBYSECTION_DEFAULT_PER_PAGE', 20);
-
 class BrowseBySectionHandler extends Handler {
 
 	/**
@@ -81,6 +79,7 @@ class BrowseBySectionHandler extends Handler {
 
 		$browseByEnabled = null;
 		$browseByPath = '';
+		$browseByPerPage = '';
 		$browseByDescription = array();
 		$currentLocale = AppLocale::getLocale();
 		foreach ($sectionSettings as $sectionSetting) {
@@ -89,6 +88,9 @@ class BrowseBySectionHandler extends Handler {
 			}
 			if ($sectionSetting['setting_name'] === 'browseByPath') {
 				$browseByPath = $sectionSetting['setting_value'];
+			}
+			if ($sectionSetting['setting_name'] === 'browseByPerPage') {
+				$browseByPerPage = $sectionSetting['setting_value'];
 			}
 			if ($sectionSetting['setting_name'] === 'browseByDescription' && $sectionSetting['locale'] === $currentLocale) {
 				$browseByDescription = $sectionSetting['setting_value'];
@@ -100,11 +102,15 @@ class BrowseBySectionHandler extends Handler {
 			exit;
 		}
 
+		if (empty($browseByPerPage)) {
+			$browseByPerPage = BROWSEBYSECTION_DEFAULT_PER_PAGE;
+		}
+
 		import('lib.pkp.classes.submission.Submission'); // Import status constants
 
 		$params = array(
-			'count' => BROWSEBYSECTION_DEFAULT_PER_PAGE,
-			'offset' => $page ? ($page - 1) * BROWSEBYSECTION_DEFAULT_PER_PAGE : 0,
+			'count' => $browseByPerPage,
+			'offset' => $page ? ($page - 1) * $browseByPerPage : 0,
 			'orderBy' => 'datePublished',
 			'sectionIds' => array($section->getId()),
 			'status' => STATUS_PUBLISHED,
@@ -145,9 +151,9 @@ class BrowseBySectionHandler extends Handler {
 		}
 
 		$currentlyShowingStart = $params['offset'] + 1;
-		$currentlyShowingEnd = $params['offset'] + (count($submissions) < BROWSEBYSECTION_DEFAULT_PER_PAGE ? count($submissions) : BROWSEBYSECTION_DEFAULT_PER_PAGE);
+		$currentlyShowingEnd = $params['offset'] + (count($submissions) < $browseByPerPage ? count($submissions) : $browseByPerPage);
 		$currentlyShowingPage = $page;
-		$countMaxPage = floor($countMax / BROWSEBYSECTION_DEFAULT_PER_PAGE) + ($countMax % BROWSEBYSECTION_DEFAULT_PER_PAGE ? 1 : 0);
+		$countMaxPage = floor($countMax / $browseByPerPage) + ($countMax % $browseByPerPage ? 1 : 0);
 
 		$dispatcher = $request->getDispatcher();
 		$urlPrevPage = '';
@@ -158,7 +164,7 @@ class BrowseBySectionHandler extends Handler {
 				null,
 				'section',
 				'view',
-				array($section->getId(), $currentlyShowingPage === 2 ? null : $currentlyShowingPage - 1)
+				array($browseByPath, $currentlyShowingPage === 2 ? null : $currentlyShowingPage - 1)
 
 			);
 		}
@@ -170,7 +176,7 @@ class BrowseBySectionHandler extends Handler {
 				null,
 				'section',
 				'view',
-				array($section->getId(), $currentlyShowingPage + 1)
+				array($browseByPath, $currentlyShowingPage + 1)
 			);
 		}
 

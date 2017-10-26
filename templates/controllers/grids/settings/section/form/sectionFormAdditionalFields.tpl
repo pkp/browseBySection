@@ -16,6 +16,9 @@
 	{fbvFormSection title="plugins.generic.browseBySection.browseByPathLabel" list="true"}
 		{fbvElement type="text" id="browseByPath" value=$browseByPath label="plugins.generic.browseBySection.browseByPathDescription"}
 	{/fbvFormSection}
+	{fbvFormSection title="plugins.generic.browseBySection.browseByPerPageLabel" list="true"}
+		{fbvElement type="text" id="browseByPerPage" value=$browseByPerPage label="plugins.generic.browseBySection.browseByPerPageDescription"}
+	{/fbvFormSection}
 	{fbvFormSection title="plugins.generic.browseBySection.browseByDescriptionLabel"}
 		{fbvElement type="textarea" multilingual=true id="browseByDescription" value=$browseByDescription rich=true}
 	{/fbvFormSection}
