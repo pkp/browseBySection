@@ -16,6 +16,8 @@ import('lib.pkp.classes.plugins.GenericPlugin');
 import('plugins.generic.browseBySection.classes.SectionPublishedArticlesDAO');
 import('plugins.generic.browseBySection.classes.BrowseBySectionDAO');
 
+define('BROWSEBYSECTION_NMI_TYPE', 'BROWSEBYSECTION_NMI_');
+
 class BrowseBySectionPlugin extends GenericPlugin {
 
 	/**
@@ -32,6 +34,8 @@ class BrowseBySectionPlugin extends GenericPlugin {
 			HookRegistry::register('sectionform::initdata', array($this, 'initDataSectionFormFields'));
 			HookRegistry::register('sectionform::readuservars', array($this, 'readSectionFormFields'));
 			HookRegistry::register('sectionform::execute', array($this, 'executeSectionFormFields'));
+			HookRegistry::register('NavigationMenus::itemTypes', array($this, 'addMenuItemTypes'));
+			HookRegistry::register('NavigationMenus::displaySettings', array($this, 'setMenuItemDisplayDetails'));
 		}
 		return $success;
 	}
@@ -88,10 +92,10 @@ class BrowseBySectionPlugin extends GenericPlugin {
 	 *		@option array [
 	 *				@option name string Hook name
 	 *				@option sectionId int
- 	 *		]
+	 *		]
 	 *		@option Smarty
 	 *		@option string
- 	 * ]
+	 * ]
 	 * @return bool
 	 */
 	public function addSectionFormFields($hookName, $args) {
@@ -108,7 +112,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 	 * @param $hookName string `sectionform::initData`
 	 * @parram $args array [
 	 *		@option SectionForm
- 	 * ]
+	 * ]
 	 */
 	public function initDataSectionFormFields($hookName, $args) {
 		$sectionForm = $args[0];
@@ -137,7 +141,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 	 * @parram $args array [
 	 *		@option SectionForm
 	 *		@option array User vars
- 	 * ]
+	 * ]
 	 */
 	public function readSectionFormFields($hookName, $args) {
 		$sectionForm =& $args[0];
@@ -156,7 +160,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 	 *		@option SectionForm
 	 *		@option Section
 	 *		@option Request
- 	 * ]
+	 * ]
 	 */
 	public function executeSectionFormFields($hookName, $args) {
 		$sectionForm = $args[0];
@@ -194,6 +198,87 @@ class BrowseBySectionPlugin extends GenericPlugin {
 
 		$browseBySectionDao = DAORegistry::getDAO('BrowseBySectionDAO');
 		$browseBySectionDao->insertSectionSettings($section->getId(), $sectionSettings);
+	}
+
+	/**
+	 * Add Navigation Menu Item types for linking to sections
+	 *
+	 * @param $hookName string
+	 * @param $args array [
+	 *		@option array Existing menu item types
+	 * ]
+	 */
+	public function addMenuItemTypes($hookName, $args) {
+		$types =& $args[0];
+		$request = Application::getRequest();
+		$context = $request->getContext();
+		$contextId = $context ? $context->getId() : 0;
+
+		if (!$contextId) {
+			return;
+		}
+
+		$browseBySectionDao = DAORegistry::getDAO('BrowseBySectionDAO');
+		$sectionDao = DAORegistry::getDAO('SectionDAO');
+		$results = $sectionDao->getByContextId($contextId);
+
+		while ($section = $results->next()) {
+			$sections[] = $section;
+		}
+
+		foreach ($sections as $section) {
+			$browseByEnabled = false;
+			$sectionSettings = $browseBySectionDao->getSectionSettings($section->getId());
+			foreach ($sectionSettings as $sectionSetting) {
+				if ($sectionSetting['setting_name'] === 'browseByEnabled' && !empty($sectionSetting['setting_value'])) {
+					$browseByEnabled = true;
+				}
+			};
+
+			if (!$browseByEnabled) {
+				continue;
+			}
+
+			$types[BROWSEBYSECTION_NMI_TYPE . $section->getId()] = array(
+				'title' => __('plugins.generic.browseBySection.navMenuItem', array('name' => $section->getLocalizedTitle())),
+				'description' => __('plugins.generic.browseBySection.navMenuItem.description'),
+			);
+		}
+	}
+
+	/**
+	 * Set the display details for the custom menu item types
+	 *
+	 * @param $hookName string
+	 * @param $args array [
+	 *		@option NavigationMenuItem
+	 * ]
+	 */
+	public function setMenuItemDisplayDetails($hookName, $args) {
+		$navigationMenuItem =& $args[0];
+		$typePrefixLength = strlen(BROWSEBYSECTION_NMI_TYPE);
+
+		if (substr($navigationMenuItem->getType(), 0, $typePrefixLength) === BROWSEBYSECTION_NMI_TYPE) {
+			$sectionId = substr($navigationMenuItem->getType(), $typePrefixLength);
+			$sectionPath = $sectionId;
+			$browseBySectionDao = DAORegistry::getDAO('BrowseBySectionDAO');
+			$sectionSettings = $browseBySectionDao->getSectionSettings($sectionId);
+			foreach ($sectionSettings as $sectionSetting) {
+				if ($sectionSetting['setting_name'] === 'browseByPath') {
+					$sectionPath = $sectionSetting['setting_value'];
+				}
+			}
+			$request = Application::getRequest();
+			$dispatcher = $request->getDispatcher();
+			$navigationMenuItem->setUrl($dispatcher->url(
+				$request,
+				ROUTE_PAGE,
+				null,
+				'section',
+				'view',
+				$sectionPath
+			));
+		}
 	}
 }
 

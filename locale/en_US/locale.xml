@@ -15,14 +15,18 @@
 	<message key="plugins.generic.browseBySection.name">Browse By Section</message>
 	<message key="plugins.generic.browseBySection.description">Allow visitors to browse journal content by section.</message>
 
-	<!-- Section Management-->
+	<!-- Section Browsing -->
+	<message key="plugins.generic.browseBySection.emptySection">Nothing has been published in this section yet.</message>
+
+	<!-- Section Management -->
 	<message key="plugins.generic.browseBySection.browsingLabel">Section Browsing</message>
 	<message key="plugins.generic.browseBySection.enableBrowsing">Enable an archive of all submissions published in this section.</message>
 	<message key="plugins.generic.browseBySection.browseByPathLabel">Section URL Path</message>
 	<message key="plugins.generic.browseBySection.browseByPathDescription">Customize the URL path on your site where readers can browse this section archive. It may only contain letters and numbers. Use hypens (-) instead of spaces. Example: book-reviews.</message>
 	<message key="plugins.generic.browseBySection.browseByDescriptionLabel">Section Archive Description</message>
 
-	<!-- Section Browsing -->
-	<message key="plugins.generic.browseBySection.emptySection">Nothing has been published in this section yet.</message>
+	<!-- Section Navigation Menus -->
+	<message key="plugins.generic.browseBySection.navMenuItem">Section: {$name}</message>
+	<message key="plugins.generic.browseBySection.navMenuItem.description">Link to a browseable archive of published work in this section.</message>
 
 </locale>
