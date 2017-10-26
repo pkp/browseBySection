@@ -11,6 +11,7 @@
  * @uses $sectionPath string The URL path for this section
  * @uses $sectionDescription string
  * @uses $articles array List of Submission objects
+ * @uses $issues array List of Issue objects the $articles are published in
  * @uses $currentlyShowingStart int 20 in `20-30 of 100 results`
  * @uses $currentlyShowingEnd int 30 in `20-30 of 100 results`
  * @uses $countMax int 100 in `20-30 of 100 results`

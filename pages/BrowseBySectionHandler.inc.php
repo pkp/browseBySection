@@ -129,6 +129,21 @@ class BrowseBySectionHandler extends Handler {
 			$publishedArticles = $sectionPublishedArticlesDao->getPublishedArticlesByIds($submissionIds);
 		}
 
+		$issues = array();
+		if (!empty($publishedArticles)) {
+			$issueIds = array_map(function($article) {
+				return $article->getIssueId();
+			}, $publishedArticles);
+			$issueIds = array_unique($issueIds);
+			$issueDao = DAORegistry::getDAO('IssueDAO');
+			foreach ($issueIds as $issueId) {
+				$issue = $issueDao->getById($issueId);
+				if ($issue->getPublished()) {
+					$issues[] = $issue;
+				}
+			}
+		}
+
 		$currentlyShowingStart = $params['offset'] + 1;
 		$currentlyShowingEnd = $params['offset'] + (count($submissions) < BROWSEBYSECTION_DEFAULT_PER_PAGE ? count($submissions) : BROWSEBYSECTION_DEFAULT_PER_PAGE);
 		$currentlyShowingPage = $page;
@@ -165,6 +180,7 @@ class BrowseBySectionHandler extends Handler {
 			'sectionPath' => $browseByPath,
 			'sectionDescription' => $browseByDescription,
 			'articles' => $publishedArticles,
+			'issues' => $issues,
 			'currentlyShowingStart' => $currentlyShowingStart,
 			'currentlyShowingEnd' => $currentlyShowingEnd,
 			'countMax' => $countMax,
