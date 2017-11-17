@@ -37,6 +37,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 			HookRegistry::register('sectionform::execute', array($this, 'executeSectionFormFields'));
 			HookRegistry::register('NavigationMenus::itemTypes', array($this, 'addMenuItemTypes'));
 			HookRegistry::register('NavigationMenus::displaySettings', array($this, 'setMenuItemDisplayDetails'));
+			$this->_registerTemplateResource();
 		}
 		return $success;
 	}
@@ -45,7 +46,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 	 * @copydoc PKPPlugin::getTemplatePath
 	 */
 	public function getTemplatePath($inCore = false) {
-		return parent::getTemplatePath($inCore) . 'templates/';
+		return $this->getTemplateResourceName() . ':templates/';
 	}
 
 	/**
