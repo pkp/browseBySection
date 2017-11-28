@@ -44,7 +44,7 @@ class BrowseBySectionHandler extends Handler {
 		$sectionPath = isset($args[0]) ? $args[0] : null;
 		$page = isset($args[1]) && ctype_digit($args[1]) ? (int) $args[1] : 1;
 		$context = $request->getContext();
-		$contextId = $context ? $context->getId() : 0;
+		$contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
 		$browseBySectionPlugin = PluginRegistry::getPlugin('generic', 'browsebysectionplugin');
 
 		// The page $arg can only contain an integer that's not 1. The first page
@@ -59,49 +59,23 @@ class BrowseBySectionHandler extends Handler {
 			exit;
 		}
 
-		$browseBySectionDao = DAORegistry::getDAO('BrowseBySectionDAO');
-		$sectionId = $browseBySectionDao->getSectionIdByPath($sectionPath);
-
-		if (!$sectionId) {
-			$request->getDispatcher()->handle404();
-			exit;
-		}
-
 		$sectionDao = DAORegistry::getDAO('SectionDAO');
-		$section = $sectionDao->getById($sectionId, $contextId);
+		$sections = $sectionDao->getByContextId($contextId);
 
-		if (!$section) {
+		$sectionExists = false;
+		while ($section = $sections->next()) {
+			if ($section->getData('browseByEnabled') && $section->getData('browseByPath') === $sectionPath) {
+				$sectionExists = true;
+				break;
+			}
+		}
+
+		if (!$sectionExists) {
 			$request->getDispatcher()->handle404();
 			exit;
 		}
 
-		$sectionSettings = $browseBySectionDao->getSectionSettings($section->getId());
-
-		$browseByEnabled = null;
-		$browseByPath = '';
-		$browseByPerPage = '';
-		$browseByDescription = array();
-		$currentLocale = AppLocale::getLocale();
-		foreach ($sectionSettings as $sectionSetting) {
-			if ($sectionSetting['setting_name'] === 'browseByEnabled') {
-				$browseByEnabled = $sectionSetting['setting_value'];
-			}
-			if ($sectionSetting['setting_name'] === 'browseByPath') {
-				$browseByPath = $sectionSetting['setting_value'];
-			}
-			if ($sectionSetting['setting_name'] === 'browseByPerPage') {
-				$browseByPerPage = $sectionSetting['setting_value'];
-			}
-			if ($sectionSetting['setting_name'] === 'browseByDescription' && $sectionSetting['locale'] === $currentLocale) {
-				$browseByDescription = $sectionSetting['setting_value'];
-			}
-		}
-
-		if (empty($browseByEnabled)) {
-			$request->getDispatcher()->handle404();
-			exit;
-		}
-
+		$browseByPerPage = $section->getData('browseByPerPage');
 		if (empty($browseByPerPage)) {
 			$browseByPerPage = BROWSEBYSECTION_DEFAULT_PER_PAGE;
 		}
@@ -164,8 +138,7 @@ class BrowseBySectionHandler extends Handler {
 				null,
 				'section',
 				'view',
-				array($browseByPath, $currentlyShowingPage === 2 ? null : $currentlyShowingPage - 1)
-
+				array($sectionPath, $currentlyShowingPage === 2 ? null : $currentlyShowingPage - 1)
 			);
 		}
 		$urlNextPage = '';
@@ -176,14 +149,14 @@ class BrowseBySectionHandler extends Handler {
 				null,
 				'section',
 				'view',
-				array($browseByPath, $currentlyShowingPage + 1)
+				array($sectionPath, $currentlyShowingPage + 1)
 			);
 		}
 
 		$templateMgr = TemplateManager::getManager($request);
 		$templateMgr->assign(array(
 			'section' => $section,
-			'sectionPath' => $browseByPath,
+			'sectionPath' => $sectionPath,
 			'sectionDescription' => $browseByDescription,
 			'articles' => $publishedArticles,
 			'issues' => $issues,

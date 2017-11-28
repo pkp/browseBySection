@@ -27,10 +27,10 @@ class BrowseBySectionPlugin extends GenericPlugin {
 		if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) return $success;
 		if ($success && $this->getEnabled()) {
 			$this->import('classes.SectionPublishedArticlesDAO');
-			$this->import('classes.BrowseBySectionDAO');
 			DAORegistry::registerDAO('SectionPublishedArticlesDAO', new SectionPublishedArticlesDAO());
-			DAORegistry::registerDAO('BrowseBySectionDAO', new BrowseBySectionDAO());
 			HookRegistry::register('LoadHandler', array($this, 'loadPageHandler'));
+			HookRegistry::register('sectiondao::getAdditionalFieldNames', array($this, 'addSectionDAOFieldNames'));
+			HookRegistry::register('sectiondao::getLocaleFieldNames', array($this, 'addSectionDAOLocaleFieldNames'));
 			HookRegistry::register('Templates::Manager::Sections::SectionForm::AdditionalMetadata', array($this, 'addSectionFormFields'));
 			HookRegistry::register('sectionform::initdata', array($this, 'initDataSectionFormFields'));
 			HookRegistry::register('sectionform::readuservars', array($this, 'readSectionFormFields'));
@@ -86,6 +86,36 @@ class BrowseBySectionPlugin extends GenericPlugin {
 	}
 
 	/**
+	 * Add section settings to SectionDAO
+	 *
+	 * @param $hookName string
+	 * @param $args array [
+	 *		@option SectionDAO
+	 *		@option array List of additional fields
+	 * ]
+	 */
+	public function addSectionDAOFieldNames($hookName, $args) {
+		$fields =& $args[1];
+		$fields[] = 'browseByEnabled';
+		$fields[] = 'browseByPath';
+		$fields[] = 'browseByPerPage';
+	}
+
+	/**
+	 * Add localized section settings to SectionDAO
+	 *
+	 * @param $hookName string
+	 * @param $args array [
+	 *		@option SectionDAO
+	 *		@option array List of additional localized fields
+	 * ]
+	 */
+	public function addSectionDAOLocaleFieldNames($hookName, $args) {
+		$fields =& $args[1];
+		$fields[] = 'browseByDescription';
+	}
+
+	/**
 	 * Add fields to the section editing form
 	 *
 	 * @param $hookName string `Templates::Manager::Sections::SectionForm::AdditionalMetadata`
@@ -117,22 +147,17 @@ class BrowseBySectionPlugin extends GenericPlugin {
 	 */
 	public function initDataSectionFormFields($hookName, $args) {
 		$sectionForm = $args[0];
-		$sectionId = $sectionForm->getSectionId();
 		$request = Application::getRequest();
 		$context = $request->getContext();
-		$contextId = $context ? $context->getId() : 0;
+		$contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
 
-		$browseBySectionDao = DAORegistry::getDAO('BrowseBySectionDAO');
-		$settings = $browseBySectionDao->getSectionSettings($sectionId);
-		$browseByDescription = array();
-		foreach ($settings as $setting) {
-			if ($setting['setting_name'] === 'browseByDescription') {
-				$browseByDescription[$setting['locale']] = $setting['setting_value'];
-			} else {
-				$sectionForm->setData($setting['setting_name'], $setting['setting_value']);
-			}
-		}
-		$sectionForm->setData('browseByDescription', $browseByDescription);
+		$sectionDao = DAORegistry::getDAO('SectionDAO');
+		$section = $sectionDao->getById($sectionForm->getSectionId(), $contextId);
+
+		$sectionForm->setData('browseByEnabled', $section->getData('browseByEnabled'));
+		$sectionForm->setData('browseByPath', $section->getData('browseByPath'));
+		$sectionForm->setData('browseByPerPage', $section->getData('browseByPerPage'));
+		$sectionForm->setData('browseByDescription', $section->getData('browseByDescription'));
 	}
 
 	/**
@@ -151,7 +176,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 		$sectionForm->setData('browseByEnabled', $request->getUserVar('browseByEnabled'));
 		$sectionForm->setData('browseByPath', $request->getUserVar('browseByPath'));
 		$sectionForm->setData('browseByPerPage', $request->getUserVar('browseByPerPage'));
-		$sectionForm->setData('browseByDescription', $request->getUserVar('browseByDescription'));
+		$sectionForm->setData('browseByDescription', $request->getUserVar('browseByDescription', null));
 	}
 
 	/**
@@ -168,47 +193,26 @@ class BrowseBySectionPlugin extends GenericPlugin {
 		$sectionForm = $args[0];
 		$section = $args[1];
 		$request = $args[2];
-		$context = $request->getContext();
-		$contextId = $context ? $context->getId() : 0;
+
+		$section->setData('browseByEnabled', $sectionForm->getData('browseByEnabled'));
+		$section->setData('browseByDescription', $sectionForm->getData('browseByDescription'));
 
 		// Force a valid browseByPath
 		$browseByPath = $sectionForm->getData('browseByPath') ? $sectionForm->getData('browseByPath') : '';
 		if (empty($browseByPath)) {
 			$browseByPath = strtolower($section->getTitle(AppLocale::getPrimaryLocale()));
 		}
-		$browseByPath =	preg_replace('/[^A-Za-z0-9-_]/', '', str_replace(' ', '-', $browseByPath));
+		$section->setData('browseByPath', preg_replace('/[^A-Za-z0-9-_]/', '', str_replace(' ', '-', $browseByPath)));
 
 		// Force a valid browseByPerPage
 		$browseByPerPage = $sectionForm->getData('browseByPerPage') ? $sectionForm->getData('browseByPerPage') : '';
 		if (!ctype_digit($browseByPerPage)) {
 			$browseByPerPage = null;
 		}
+		$section->setData('browseByPerPage', $browseByPerPage);
 
-		$sectionSettings = array(
-			array(
-				'name' => 'browseByEnabled',
-				'value' => $sectionForm->getData('browseByEnabled'),
-				'type' => 'bool'
-			),
-			array(
-				'name' => 'browseByPath',
-				'value' => $browseByPath,
-				'type' => 'string'
-			),
-			array(
-				'name' => 'browseByPerPage',
-				'value' => $browseByPerPage,
-				'type' => 'int'
-			),
-			array(
-				'name' => 'browseByDescription',
-				'value' => $sectionForm->getData('browseByDescription'),
-				'type' => 'string'
-			),
-		);
-
-		$browseBySectionDao = DAORegistry::getDAO('BrowseBySectionDAO');
-		$browseBySectionDao->insertSectionSettings($section->getId(), $sectionSettings);
+		$sectionDao = DAORegistry::getDAO('SectionDAO');
+		$sectionDao->updateObject($section);
 	}
 
 	/**
@@ -223,37 +227,18 @@ class BrowseBySectionPlugin extends GenericPlugin {
 		$types =& $args[0];
 		$request = Application::getRequest();
 		$context = $request->getContext();
-		$contextId = $context ? $context->getId() : 0;
+		$contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
 
-		if (!$contextId) {
-			return;
-		}
-
-		$browseBySectionDao = DAORegistry::getDAO('BrowseBySectionDAO');
 		$sectionDao = DAORegistry::getDAO('SectionDAO');
-		$results = $sectionDao->getByContextId($contextId);
+		$sections = $sectionDao->getByContextId($contextId);
 
-		while ($section = $results->next()) {
-			$sections[] = $section;
-		}
-
-		foreach ($sections as $section) {
-			$browseByEnabled = false;
-			$sectionSettings = $browseBySectionDao->getSectionSettings($section->getId());
-			foreach ($sectionSettings as $sectionSetting) {
-				if ($sectionSetting['setting_name'] === 'browseByEnabled' && !empty($sectionSetting['setting_value'])) {
-					$browseByEnabled = true;
-				}
-			};
-
-			if (!$browseByEnabled) {
-				continue;
+		while ($section = $sections->next()) {
+			if ($section->getData('browseByEnabled')) {
+				$types[BROWSEBYSECTION_NMI_TYPE . $section->getId()] = array(
+					'title' => __('plugins.generic.browseBySection.navMenuItem', array('name' => $section->getLocalizedTitle())),
+					'description' => __('plugins.generic.browseBySection.navMenuItem.description'),
+				);
 			}
-
-			$types[BROWSEBYSECTION_NMI_TYPE . $section->getId()] = array(
-				'title' => __('plugins.generic.browseBySection.navMenuItem', array('name' => $section->getLocalizedTitle())),
-				'description' => __('plugins.generic.browseBySection.navMenuItem.description'),
-			);
 		}
 	}
 
@@ -270,25 +255,26 @@ class BrowseBySectionPlugin extends GenericPlugin {
 		$typePrefixLength = strlen(BROWSEBYSECTION_NMI_TYPE);
 
 		if (substr($navigationMenuItem->getType(), 0, $typePrefixLength) === BROWSEBYSECTION_NMI_TYPE) {
-			$sectionId = substr($navigationMenuItem->getType(), $typePrefixLength);
-			$sectionPath = $sectionId;
-			$browseBySectionDao = DAORegistry::getDAO('BrowseBySectionDAO');
-			$sectionSettings = $browseBySectionDao->getSectionSettings($sectionId);
-			foreach ($sectionSettings as $sectionSetting) {
-				if ($sectionSetting['setting_name'] === 'browseByPath') {
-					$sectionPath = $sectionSetting['setting_value'];
-				}
-			}
 			$request = Application::getRequest();
-			$dispatcher = $request->getDispatcher();
-			$navigationMenuItem->setUrl($dispatcher->url(
-				$request,
-				ROUTE_PAGE,
-				null,
-				'section',
-				'view',
-				$sectionPath
-			));
+			$context = $request->getContext();
+			$contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
+			$sectionId = substr($navigationMenuItem->getType(), $typePrefixLength);
+			$sectionDao = DAORegistry::getDAO('SectionDAO');
+			$section = $sectionDao->getById($sectionId, $contextId);
+			if (!$section->getData('browseByEnabled')) {
+				$navigationMenuItem->setIsDisplayed(false);
+			} else {
+				$sectionPath = $section->getData('browseByPath') ? $section->getData('browseByPath') : $sectionId;
+				$dispatcher = $request->getDispatcher();
+				$navigationMenuItem->setUrl($dispatcher->url(
+					$request,
+					ROUTE_PAGE,
+					null,
+					'section',
+					'view',
+					$sectionPath
+				));
+			}
 		}
 	}
 }
