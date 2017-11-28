@@ -13,8 +13,6 @@
  * @brief Allow visitors to browse journal content by section.
  */
 import('lib.pkp.classes.plugins.GenericPlugin');
-import('plugins.generic.browseBySection.classes.SectionPublishedArticlesDAO');
-import('plugins.generic.browseBySection.classes.BrowseBySectionDAO');
 
 define('BROWSEBYSECTION_DEFAULT_PER_PAGE', 30);
 define('BROWSEBYSECTION_NMI_TYPE', 'BROWSEBYSECTION_NMI_');
@@ -28,6 +26,8 @@ class BrowseBySectionPlugin extends GenericPlugin {
 		$success = parent::register($category, $path);
 		if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) return $success;
 		if ($success && $this->getEnabled()) {
+			$this->import('classes.SectionPublishedArticlesDAO');
+			$this->import('classes.BrowseBySectionDAO');
 			DAORegistry::registerDAO('SectionPublishedArticlesDAO', new SectionPublishedArticlesDAO());
 			DAORegistry::registerDAO('BrowseBySectionDAO', new BrowseBySectionDAO());
 			HookRegistry::register('LoadHandler', array($this, 'loadPageHandler'));
