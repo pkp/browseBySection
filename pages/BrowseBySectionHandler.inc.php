@@ -93,7 +93,7 @@ class BrowseBySectionHandler extends Handler {
 		import('classes.core.ServicesContainer');
 		$submissionService = ServicesContainer::instance()->get('submission');
 		$submissions = $submissionService->getSubmissions($contextId, $params);
-		$countMax = $submissionService->getSubmissionsMaxCount($contextId, $params);
+		$total = $submissionService->getSubmissionsMaxCount($contextId, $params);
 
 		if ($page > 1 && !count($submissions)) {
 			$request->getDispatcher()->handle404();
@@ -124,34 +124,10 @@ class BrowseBySectionHandler extends Handler {
 			}
 		}
 
-		$currentlyShowingStart = $params['offset'] + 1;
-		$currentlyShowingEnd = $params['offset'] + (count($submissions) < $browseByPerPage ? count($submissions) : $browseByPerPage);
-		$currentlyShowingPage = $page;
-		$countMaxPage = floor($countMax / $browseByPerPage) + ($countMax % $browseByPerPage ? 1 : 0);
-
-		$dispatcher = $request->getDispatcher();
-		$urlPrevPage = '';
-		if ($currentlyShowingPage > 1) {
-			$urlPrevPage = $dispatcher->url(
-				$request,
-				ROUTE_PAGE,
-				null,
-				'section',
-				'view',
-				array($sectionPath, $currentlyShowingPage === 2 ? null : $currentlyShowingPage - 1)
-			);
-		}
-		$urlNextPage = '';
-		if ($countMaxPage > $currentlyShowingPage) {
-			$urlNextPage = $dispatcher->url(
-				$request,
-				ROUTE_PAGE,
-				null,
-				'section',
-				'view',
-				array($sectionPath, $currentlyShowingPage + 1)
-			);
-		}
+		$showingStart = $params['offset'] + 1;
+		$showingEnd = min($params['offset'] + $params['count'], $params['offset'] + count($publishedArticles));
+		$nextPage = $total > $showingEnd ? $page + 1 : null;
+		$prevPage = $showingStart > 1 ? $page - 1 : null;
 
 		$templateMgr = TemplateManager::getManager($request);
 		$templateMgr->assign(array(
@@ -160,13 +136,11 @@ class BrowseBySectionHandler extends Handler {
 			'sectionDescription' => $browseByDescription,
 			'articles' => $publishedArticles,
 			'issues' => $issues,
-			'currentlyShowingStart' => $currentlyShowingStart,
-			'currentlyShowingEnd' => $currentlyShowingEnd,
-			'countMax' => $countMax,
-			'currentlyShowingPage' => $currentlyShowingPage,
-			'countMaxPage' => $countMaxPage,
-			'urlPrevPage' => $urlPrevPage,
-			'urlNextPage' => $urlNextPage,
+			'showingStart' => $showingStart,
+			'showingEnd' => $showingEnd,
+			'total' => $total,
+			'nextPage' => $nextPage,
+			'prevPage' => $prevPage,
 		));
 
 		$plugin = PluginRegistry::getPlugin('generic', 'browsebysectionplugin');

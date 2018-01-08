@@ -38,23 +38,30 @@
 					{include file="frontend/objects/article_summary.tpl" section=null showDatePublished=true hideGalleys=true}
 				</li>
 			{/foreach}
+
+			{* Pagination *}
+			{if $prevPage > 1}
+				{url|assign:"prevUrl" router=$smarty.const.ROUTE_PAGE page="section" op="view" path=$sectionPath|to_array:$prevPage}
+			{elseif $prevPage === 1}
+				{url|assign:"prevUrl" router=$smarty.const.ROUTE_PAGE page="section" op="view" path=$sectionPath}
+			{/if}
+			{if $nextPage}
+				{url|assign:"nextUrl" router=$smarty.const.ROUTE_PAGE page="section" op="view" path=$sectionPath|to_array:$nextPage}
+			{/if}
+			{include
+				file="frontend/components/pagination.tpl"
+				prevUrl=$prevUrl
+				nextUrl=$nextUrl
+				showingStart=$showingStart
+				showingEnd=$showingEnd
+				total=$total
+			}
 		</ul>
 	{else}
 		<p class="section_empty">
 			{translate key="plugins.generic.browseBySection.emptySection"}
 		</p>
 	{/if}
-
-	{* TODO Refactor this to use a common pattern for all `cmp_pagination` needs *}
-	<div class="cmp_pagination">
-		{$currentlyShowingStart}-{$currentlyShowingEnd} of {$countMax}
-		{if $urlPrevPage}
-			<a href="{$urlPrevPage|escape}">Prev</a>
-		{/if}
-		{if $urlNextPage}
-			<a href="{$urlNextPage|escape}">Next</a>
-		{/if}
-	</div>
 
 </div><!-- .page -->
 
