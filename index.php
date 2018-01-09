@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @defgroup plugins_blocks_browsebysection
+ * @defgroup plugins_generic_browsebysection
  */
 
 /**
@@ -11,7 +11,7 @@
  * Copyright (c) 2003-2017 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
- * @ingroup plugins_blocks_browsebysection
+ * @ingroup plugins_generic_browsebysection
  * @brief Wrapper for the Browse by Section plugin.
  *
  */
