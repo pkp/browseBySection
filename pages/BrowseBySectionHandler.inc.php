@@ -133,7 +133,7 @@ class BrowseBySectionHandler extends Handler {
 		$templateMgr->assign(array(
 			'section' => $section,
 			'sectionPath' => $sectionPath,
-			'sectionDescription' => $browseByDescription,
+			'sectionDescription' => $section->getLocalizedData('browseByDescription'),
 			'articles' => $publishedArticles,
 			'issues' => $issues,
 			'showingStart' => $showingStart,
