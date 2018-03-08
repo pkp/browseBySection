@@ -37,6 +37,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 			HookRegistry::register('sectionform::execute', array($this, 'executeSectionFormFields'));
 			HookRegistry::register('NavigationMenus::itemTypes', array($this, 'addMenuItemTypes'));
 			HookRegistry::register('NavigationMenus::displaySettings', array($this, 'setMenuItemDisplayDetails'));
+			HookRegistry::register('SitemapHandler::createJournalSitemap', array($this, 'addSitemapURLs'));
 			$this->_registerTemplateResource();
 		}
 		return $success;
@@ -277,6 +278,35 @@ class BrowseBySectionPlugin extends GenericPlugin {
 				));
 			}
 		}
+	}
+
+	/**
+	 * Add the browse by section URLs to the sitemap
+	 *
+	 * @param $hookName string
+	 * @param $args array
+	 * @return boolean
+	 */
+	function addSitemapURLs($hookName, $args) {
+		$doc = $args[0];
+		$rootNode = $doc->documentElement;
+
+		$request = Application::getRequest();
+		$context = $request->getContext();
+		if ($context) {
+			$sectionDao = DAORegistry::getDAO('SectionDAO');
+			$sections = $sectionDao->getByContextId($context->getId());
+			while ($section = $sections->next()) {
+				if ($section->getData('browseByEnabled')) {
+					$sectionPath = $section->getData('browseByPath') ? $section->getData('browseByPath') : $sectionId;
+					// Create and append sitemap XML "url" element
+					$url = $doc->createElement('url');
+					$url->appendChild($doc->createElement('loc', htmlspecialchars($request->url($context->getPath(), 'section', 'view', $sectionPath), ENT_COMPAT, 'UTF-8')));
+					$rootNode->appendChild($url);
+				}
+			}
+		}
+		return false;
 	}
 }
 
