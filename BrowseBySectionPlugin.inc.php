@@ -44,13 +44,6 @@ class BrowseBySectionPlugin extends GenericPlugin {
 	}
 
 	/**
-	 * @copydoc PKPPlugin::getTemplatePath
-	 */
-	public function getTemplatePath($inCore = false) {
-		return $this->getTemplateResourceName() . ':templates/';
-	}
-
-	/**
 	 * @copydoc PKPPlugin::getDisplayName
 	 */
 	public function getDisplayName() {
@@ -134,7 +127,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 	public function addSectionFormFields($hookName, $args) {
 		$smarty =& $args[1];
 		$output =& $args[2];
-		$output .= $smarty->fetch($this->getTemplatePath() . 'controllers/grids/settings/section/form/sectionFormAdditionalFields.tpl');
+		$output .= $smarty->fetch($this->getTemplateResource('controllers/grids/settings/section/form/sectionFormAdditionalFields.tpl'));
 
 		return false;
 	}
