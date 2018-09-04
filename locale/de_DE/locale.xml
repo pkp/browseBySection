@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * locale.xml
+  *
+  * Copyright (c) 2014-2017 Simon Fraser University
+  * Copyright (c) 2003-2017 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Localization strings for the de_DE (Deutsch) locale.
+  -->
+
+<locale name="de_DE" full_name="Deutsch (Deutschland)">
+	<message key="plugins.generic.browseBySection.name">Nach Rubriken durchblättern</message>
+	<message key="plugins.generic.browseBySection.description">Erlaubt Besuchern die Zeitschrift nach Rubriken durchzublättern.</message>
+
+	<!-- Section Browsing -->
+	<message key="plugins.generic.browseBySection.emptySection">In dieser Rubrik wurde bislang kein Beitrag publiziert.</message>
+
+	<!-- Section Management -->
+	<message key="plugins.generic.browseBySection.browsingLabel">Nach Rubriken durchblättern</message>
+	<message key="plugins.generic.browseBySection.enableBrowsing">Ermöglicht den Zugriff auf das Archiv mit allen publizierten Artikel einer Rubrik.</message>
+	<message key="plugins.generic.browseBySection.browseByPathLabel">URL-Pfad der Rubrik</message>
+	<message key="plugins.generic.browseBySection.browseByPathDescription">Passe den URL-Pfad an, über den Besucher auf das Archiv der Rubrik zugreifen können. Der Pfad darf nur Buchstaben, Zahlen und Bindestriche enthalten.</message>
+	<message key="plugins.generic.browseBySection.browseByPerPageLabel">Beiträge pro Seite</message>
+	<message key="plugins.generic.browseBySection.browseByPerPageDescription">Zahl der Beiträge, die auf einer Seite des Rubrik-Archivs dargestellt werden.</message>
+	<message key="plugins.generic.browseBySection.browseByDescriptionLabel">Beschreibung des Rubrik-Archivs</message>
+
+	<!-- Section Navigation Menus -->
+	<message key="plugins.generic.browseBySection.navMenuItem">Rubrik: {$name}</message>
+	<message key="plugins.generic.browseBySection.navMenuItem.description">Link zu dem Archiv der publizierten Beiträge in dieser Rubrik.</message>
+
+</locale>
