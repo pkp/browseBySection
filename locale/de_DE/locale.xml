@@ -13,7 +13,7 @@
 
 <locale name="de_DE" full_name="Deutsch (Deutschland)">
 	<message key="plugins.generic.browseBySection.name">Nach Rubriken durchblättern</message>
-	<message key="plugins.generic.browseBySection.description">Erlaubt Besucher/innen die Zeitschrift nach Rubriken durchzublättern.</message>
+	<message key="plugins.generic.browseBySection.description">Erlaubt Besucher/innen, die Zeitschrift nach Rubriken durchzublättern.</message>
 
 	<!-- Section Browsing -->
 	<message key="plugins.generic.browseBySection.emptySection">In dieser Rubrik wurde bislang kein Beitrag veröffentlicht.</message>
