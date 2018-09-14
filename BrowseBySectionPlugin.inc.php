@@ -22,7 +22,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 	/**
 	 * @copydoc Plugin::register
 	 */
-	public function register($category, $path) {
+	public function register($category, $path, $mainContextId = NULL) {
 		$success = parent::register($category, $path);
 		if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) return $success;
 		if ($success && $this->getEnabled()) {
