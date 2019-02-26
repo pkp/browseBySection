@@ -27,7 +27,7 @@
 	</h1>
 
 	<div class="section_description">
-		{$sectionDescription}
+		{$sectionDescription|strip_unsafe_html}
 	</div>
 
 	{if $articles|@count}
@@ -41,12 +41,12 @@
 
 			{* Pagination *}
 			{if $prevPage > 1}
-				{capture assign="prevUrl"}{url router=$smarty.const.ROUTE_PAGE page="section" op="view" path=$sectionPath|to_array:$prevPage}{/capture}
+				{capture assign="prevUrl"}{url|escape router=$smarty.const.ROUTE_PAGE page="section" op="view" path=$sectionPath|to_array:$prevPage}{/capture}
 			{elseif $prevPage === 1}
-				{capture assign="prevUrl"}{url router=$smarty.const.ROUTE_PAGE page="section" op="view" path=$sectionPath}{/capture}
+				{capture assign="prevUrl"}{url|escape router=$smarty.const.ROUTE_PAGE page="section" op="view" path=$sectionPath}{/capture}
 			{/if}
 			{if $nextPage}
-				{capture assign="nextUrl"}{url router=$smarty.const.ROUTE_PAGE page="section" op="view" path=$sectionPath|to_array:$nextPage}{/capture}
+				{capture assign="nextUrl"}{url|escape router=$smarty.const.ROUTE_PAGE page="section" op="view" path=$sectionPath|to_array:$nextPage}{/capture}
 			{/if}
 			{include
 				file="frontend/components/pagination.tpl"

@@ -267,7 +267,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 					null,
 					'section',
 					'view',
-					$sectionPath
+					htmlspecialchars($sectionPath)
 				));
 			}
 		}
