@@ -19,4 +19,3 @@ require_once('BrowseBySectionPlugin.inc.php');
 
 return new BrowseBySectionPlugin();
 
-?>

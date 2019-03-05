@@ -149,4 +149,3 @@ class BrowseBySectionHandler extends Handler {
 	}
 }
 
-?>
