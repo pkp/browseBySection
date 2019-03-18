@@ -145,7 +145,7 @@ class BrowseBySectionHandler extends Handler {
 
 		$plugin = PluginRegistry::getPlugin('generic', 'browsebysectionplugin');
 
-		return $templateMgr->display($plugin->getTemplateResource('frontend/pages/section.tpl'));
+		return $templateMgr->display($plugin->getTemplateResourceName() . ':templates/frontend/pages/section.tpl');
 	}
 }
 

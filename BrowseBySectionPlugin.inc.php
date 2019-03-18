@@ -127,7 +127,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 	public function addSectionFormFields($hookName, $args) {
 		$smarty =& $args[1];
 		$output =& $args[2];
-		$output .= $smarty->fetch($this->getTemplateResource('controllers/grids/settings/section/form/sectionFormAdditionalFields.tpl'));
+		$output .= $smarty->fetch($this->getTemplateResourceName() . ':templates/controllers/grids/settings/section/form/sectionFormAdditionalFields.tpl');
 
 		return false;
 	}
@@ -149,10 +149,12 @@ class BrowseBySectionPlugin extends GenericPlugin {
 		$sectionDao = DAORegistry::getDAO('SectionDAO');
 		$section = $sectionDao->getById($sectionForm->getSectionId(), $contextId);
 
-		$sectionForm->setData('browseByEnabled', $section->getData('browseByEnabled'));
-		$sectionForm->setData('browseByPath', $section->getData('browseByPath'));
-		$sectionForm->setData('browseByPerPage', $section->getData('browseByPerPage'));
-		$sectionForm->setData('browseByDescription', $section->getData('browseByDescription'));
+		if ($section) {
+			$sectionForm->setData('browseByEnabled', $section->getData('browseByEnabled'));
+			$sectionForm->setData('browseByPath', $section->getData('browseByPath'));
+			$sectionForm->setData('browseByPerPage', $section->getData('browseByPerPage'));
+			$sectionForm->setData('browseByDescription', $section->getData('browseByDescription'));
+		}
 	}
 
 	/**
