@@ -14,5 +14,5 @@ You can now link to the section from any Navigation Menu by going to the **Setti
 This plugin is licensed under the GNU General Public License v2.
 
 ## Compatibility
-- v1.0.1 - OJS 3.1.2
-- v1.0 - OJS 3.1.1+
+
+Use the [3.1.1 branch](https://github.com/pkp/browseBySection/tree/3.1.1) when running OJS 3.1.1.x.
