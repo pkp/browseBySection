@@ -149,10 +149,12 @@ class BrowseBySectionPlugin extends GenericPlugin {
 		$sectionDao = DAORegistry::getDAO('SectionDAO');
 		$section = $sectionDao->getById($sectionForm->getSectionId(), $contextId);
 
-		$sectionForm->setData('browseByEnabled', $section->getData('browseByEnabled'));
-		$sectionForm->setData('browseByPath', $section->getData('browseByPath'));
-		$sectionForm->setData('browseByPerPage', $section->getData('browseByPerPage'));
-		$sectionForm->setData('browseByDescription', $section->getData('browseByDescription'));
+		if ($section) {
+			$sectionForm->setData('browseByEnabled', $section->getData('browseByEnabled'));
+			$sectionForm->setData('browseByPath', $section->getData('browseByPath'));
+			$sectionForm->setData('browseByPerPage', $section->getData('browseByPerPage'));
+			$sectionForm->setData('browseByDescription', $section->getData('browseByDescription'));
+		}
 	}
 
 	/**
@@ -180,14 +182,12 @@ class BrowseBySectionPlugin extends GenericPlugin {
 	 * @param $hookName string `sectionform::execute`
 	 * @param $args array [
 	 *		@option SectionForm
-	 *		@option Section
-	 *		@option Request
 	 * ]
 	 */
 	public function executeSectionFormFields($hookName, $args) {
+		$sectionDao = DAORegistry::getDAO('SectionDAO');
 		$sectionForm = $args[0];
-		$section = $args[1];
-		$request = $args[2];
+		$section = $sectionDao->getById($sectionForm->getSectionId(), Application::getRequest()->getContext()->getId());
 
 		$section->setData('browseByEnabled', $sectionForm->getData('browseByEnabled'));
 		$section->setData('browseByDescription', $sectionForm->getData('browseByDescription'));
@@ -206,7 +206,6 @@ class BrowseBySectionPlugin extends GenericPlugin {
 		}
 		$section->setData('browseByPerPage', $browseByPerPage);
 
-		$sectionDao = DAORegistry::getDAO('SectionDAO');
 		$sectionDao->updateObject($section);
 	}
 
