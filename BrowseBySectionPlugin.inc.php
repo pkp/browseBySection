@@ -142,7 +142,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 	 */
 	public function initDataSectionFormFields($hookName, $args) {
 		$sectionForm = $args[0];
-		$request = Application::getRequest();
+		$request = Application::get()->getRequest();
 		$context = $request->getContext();
 		$contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
 
@@ -168,7 +168,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 	 */
 	public function readSectionFormFields($hookName, $args) {
 		$sectionForm =& $args[0];
-		$request = Application::getRequest();
+		$request = Application::get()->getRequest();
 
 		$sectionForm->setData('browseByEnabled', $request->getUserVar('browseByEnabled'));
 		$sectionForm->setData('browseByPath', $request->getUserVar('browseByPath'));
@@ -219,7 +219,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 	 */
 	public function addMenuItemTypes($hookName, $args) {
 		$types =& $args[0];
-		$request = Application::getRequest();
+		$request = Application::get()->getRequest();
 		$context = $request->getContext();
 		$contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
 
@@ -249,7 +249,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 		$typePrefixLength = strlen(BROWSEBYSECTION_NMI_TYPE);
 
 		if (substr($navigationMenuItem->getType(), 0, $typePrefixLength) === BROWSEBYSECTION_NMI_TYPE) {
-			$request = Application::getRequest();
+			$request = Application::get()->getRequest();
 			$context = $request->getContext();
 			$contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
 			$sectionId = substr($navigationMenuItem->getType(), $typePrefixLength);
