@@ -288,7 +288,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 			$sections = $sectionDao->getByContextId($context->getId());
 			while ($section = $sections->next()) {
 				if ($section->getData('browseByEnabled')) {
-					$sectionPath = $section->getData('browseByPath') ? $section->getData('browseByPath') : $sectionId;
+					$sectionPath = $section->getData('browseByPath') ? $section->getData('browseByPath') : $section->getId();
 					// Create and append sitemap XML "url" element
 					$url = $doc->createElement('url');
 					$url->appendChild($doc->createElement('loc', htmlspecialchars($request->url($context->getPath(), 'section', 'view', $sectionPath), ENT_COMPAT, 'UTF-8')));
