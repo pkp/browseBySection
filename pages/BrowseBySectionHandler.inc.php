@@ -54,7 +54,7 @@ class BrowseBySectionHandler extends Handler {
 			exit;
 		}
 
-		if (!$sectionPath) {
+		if (!$sectionPath || !$contextId) {
 			$request->getDispatcher()->handle404();
 			exit;
 		}
@@ -80,52 +80,43 @@ class BrowseBySectionHandler extends Handler {
 			$browseByPerPage = BROWSEBYSECTION_DEFAULT_PER_PAGE;
 		}
 
-		import('lib.pkp.classes.submission.Submission'); // Import status constants
+		import('classes.submission.Submission'); // Import status constants
 
-		$params = array(
+		$params = [
+			'contextId' => $contextId,
 			'count' => $browseByPerPage,
 			'offset' => $page ? ($page - 1) * $browseByPerPage : 0,
 			'orderBy' => 'datePublished',
-			'sectionIds' => array($section->getId()),
+			'sectionIds' => [(int) $section->getId()],
 			'status' => STATUS_PUBLISHED,
-		);
+		];
 
-		import('classes.core.ServicesContainer');
-		$submissionService = ServicesContainer::instance()->get('submission');
-		$submissions = $submissionService->getSubmissions($contextId, $params);
-		$total = $submissionService->getSubmissionsMaxCount($contextId, $params);
+		$result = Services::get('submission')->getMany($params);
+		$total = Services::get('submission')->getMax($params);
 
-		if ($page > 1 && !count($submissions)) {
+		if ($page > 1 && !$result->valid()) {
 			$request->getDispatcher()->handle404();
 			exit;
 		}
 
-		$publishedArticles = array();
-		if (!empty($submissions)) {
-			$submissionIds = array_map(function($submission) {
-				return $submission->getId();
-			}, $submissions);
-			$sectionPublishedArticlesDao = DAORegistry::getDAO('SectionPublishedArticlesDAO');
-			$publishedArticles = $sectionPublishedArticlesDao->getPublishedArticlesByIds($submissionIds);
-		}
-
-		$issues = array();
-		if (!empty($publishedArticles)) {
-			$issueIds = array_map(function($article) {
-				return $article->getIssueId();
-			}, $publishedArticles);
-			$issueIds = array_unique($issueIds);
-			$issueDao = DAORegistry::getDAO('IssueDAO');
-			foreach ($issueIds as $issueId) {
-				$issue = $issueDao->getById($issueId);
-				if ($issue->getPublished()) {
-					$issues[] = $issue;
-				}
+		$submissions = [];
+		$issueIds = [];
+		foreach ($result as $submission) {
+			$submissions[] = $submission;
+			if ($submission->getCurrentPublication()->getData('issueId')) {
+				$issueIds[] = $submission->getCurrentPublication()->getData('issueId');
 			}
 		}
 
+		$result = Services::get('issue')->getMany([
+			'contextId' => $contextId,
+			'isPublished' => true,
+			'issueIds' => array_unique($issueIds),
+		]);
+		$issues = iterator_to_array($result);
+
 		$showingStart = $params['offset'] + 1;
-		$showingEnd = min($params['offset'] + $params['count'], $params['offset'] + count($publishedArticles));
+		$showingEnd = min($params['offset'] + $params['count'], $params['offset'] + count($submissions));
 		$nextPage = $total > $showingEnd ? $page + 1 : null;
 		$prevPage = $showingStart > 1 ? $page - 1 : null;
 
@@ -134,7 +125,7 @@ class BrowseBySectionHandler extends Handler {
 			'section' => $section,
 			'sectionPath' => $sectionPath,
 			'sectionDescription' => $section->getLocalizedData('browseByDescription'),
-			'articles' => $publishedArticles,
+			'articles' => $submissions,
 			'issues' => $issues,
 			'showingStart' => $showingStart,
 			'showingEnd' => $showingEnd,

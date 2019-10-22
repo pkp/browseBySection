@@ -26,8 +26,6 @@ class BrowseBySectionPlugin extends GenericPlugin {
 		$success = parent::register($category, $path);
 		if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) return $success;
 		if ($success && $this->getEnabled()) {
-			$this->import('classes.SectionPublishedArticlesDAO');
-			DAORegistry::registerDAO('SectionPublishedArticlesDAO', new SectionPublishedArticlesDAO());
 			HookRegistry::register('LoadHandler', array($this, 'loadPageHandler'));
 			HookRegistry::register('sectiondao::getAdditionalFieldNames', array($this, 'addSectionDAOFieldNames'));
 			HookRegistry::register('sectiondao::getLocaleFieldNames', array($this, 'addSectionDAOLocaleFieldNames'));
