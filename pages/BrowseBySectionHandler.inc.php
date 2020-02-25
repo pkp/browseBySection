@@ -104,29 +104,29 @@ class BrowseBySectionHandler extends Handler {
 			'status' => STATUS_PUBLISHED,
 		];
 
-		$result = Services::get('submission')->getMany($params);
+		$submissionsIterator = Services::get('submission')->getMany($params);
 		$total = Services::get('submission')->getMax($params);
 
-		if ($page > 1 && !$result->valid()) {
+		if ($page > 1 && !count($submissionsIterator)) {
 			$request->getDispatcher()->handle404();
 			exit;
 		}
 
 		$submissions = [];
 		$issueIds = [];
-		foreach ($result as $submission) {
+		foreach ($submissionsIterator as $submission) {
 			$submissions[] = $submission;
 			if ($submission->getCurrentPublication()->getData('issueId')) {
 				$issueIds[] = $submission->getCurrentPublication()->getData('issueId');
 			}
 		}
 
-		$result = Services::get('issue')->getMany([
+		$issuesIterator = Services::get('issue')->getMany([
 			'contextId' => $contextId,
 			'isPublished' => true,
 			'issueIds' => array_unique($issueIds),
 		]);
-		$issues = iterator_to_array($result);
+		$issues = iterator_to_array($issuesIterator);
 
 		$showingStart = $params['offset'] + 1;
 		$showingEnd = min($params['offset'] + $params['count'], $params['offset'] + count($submissions));
