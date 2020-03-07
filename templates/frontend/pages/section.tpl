@@ -20,7 +20,7 @@
  *}
 
 {include file="frontend/components/header.tpl" pageTitleTranslated=$section->getLocalizedTitle()|escape}
-
+{include file="frontend/components/breadcrumbs.tpl" currentTitle=$section->getLocalizedTitle()|escape}
 <div class="page page_section page_section_{$sectionPath|escape}">
 	<h1 class="page_title">
 		{$section->getLocalizedTitle()|escape}
