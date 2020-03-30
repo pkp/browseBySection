@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * locale.xml
+  *
+  * Copyright (c) 2014-2018 Simon Fraser University
+  * Copyright (c) 2003-2018 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Localization strings for the ar_IQ (Arabic) locale.
+  -->
+
+<locale name="ar_IQ" full_name="العربية">
+	<message key="plugins.generic.browseBySection.name">التصفح حسب الأقسام</message>
+	<message key="plugins.generic.browseBySection.description">السماح لزوار الموقع بتصفح محتوى المجلة حسب أقسامها.</message>
+
+	<!-- Section Browsing -->
+	<message key="plugins.generic.browseBySection.emptySection">لم يُنشر أي شيء ضمن هذا القسم بعد.</message>
+
+	<!-- Section Management -->
+	<message key="plugins.generic.browseBySection.browsingLabel">تصفح الأقسام</message>
+	<message key="plugins.generic.browseBySection.enableBrowsing">إتاحة أرشيف لكل طلبات التقديم المنشورة في هذا القسم.</message>
+	<message key="plugins.generic.browseBySection.browseByPathLabel">مسار رابط القسم</message>
+	<message key="plugins.generic.browseBySection.browseByPathDescription">تخصيص مسار الرابط في موقعك حيث يمكن للقراء تصفح أرشيف هذا القسم. نص المسار يقتصر على حروف وأرقام فقط. استعمل (-) بدلاً من الفراغات. مثلاً: مراجعات-الكتب.</message>
+	<message key="plugins.generic.browseBySection.browseByPerPageLabel">الفقرات لكل صفحة</message>
+	<message key="plugins.generic.browseBySection.browseByPerPageDescription">عدد الفقرات المطلوب عرضها لكل صفحة ضمن أرشيف القسم.</message>
+	<message key="plugins.generic.browseBySection.browseByDescriptionLabel">وصف أرشيف القسم</message>
+
+	<!-- Section Navigation Menus -->
+	<message key="plugins.generic.browseBySection.navMenuItem">قسم: {$name}</message>
+	<message key="plugins.generic.browseBySection.navMenuItem.description">الربط مع أرشيف قابل للتصفح لعمل منشور في هذا القسم.</message>
+
+</locale>
