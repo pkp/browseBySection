@@ -80,12 +80,25 @@ class BrowseBySectionHandler extends Handler {
 			$browseByPerPage = BROWSEBYSECTION_DEFAULT_PER_PAGE;
 		}
 
+		$browseByOrder = $section->getData('browseByOrder');
+		$orderBy = $browseByOrder;
+		if (strpos($orderBy, 'title') !== false) {
+			$orderBy = 'title';
+		} else {
+			$orderBy = 'dateSubmitted';
+		}
+		if (strpos($browseByOrder, 'Asc') !== false) {
+			$orderDir = 'ASC';
+		} else {
+			$orderDir = 'DESC';
+		}
 		import('lib.pkp.classes.submission.Submission'); // Import status constants
 
 		$params = array(
 			'count' => $browseByPerPage,
 			'offset' => $page ? ($page - 1) * $browseByPerPage : 0,
-			'orderBy' => 'datePublished',
+			'orderBy' => $orderBy,
+			'orderDirection' => $orderDir,
 			'sectionIds' => array($section->getId()),
 			'status' => STATUS_PUBLISHED,
 		);
@@ -106,7 +119,9 @@ class BrowseBySectionHandler extends Handler {
 				return $submission->getId();
 			}, $submissions);
 			$sectionPublishedArticlesDao = DAORegistry::getDAO('SectionPublishedArticlesDAO');
-			$publishedArticles = $sectionPublishedArticlesDao->getPublishedArticlesByIds($submissionIds);
+			foreach ($submissionIds as $sIds) {
+				$publishedArticles[] = $sectionPublishedArticlesDao->getBySubmissionId($sIds);
+			}
 		}
 
 		$issues = array();

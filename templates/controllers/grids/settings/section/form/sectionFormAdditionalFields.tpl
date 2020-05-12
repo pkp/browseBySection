@@ -22,4 +22,7 @@
 	{fbvFormSection title="plugins.generic.browseBySection.browseByDescriptionLabel"}
 		{fbvElement type="textarea" multilingual=true id="browseByDescription" value=$browseByDescription rich=true}
 	{/fbvFormSection}
+	{fbvFormSection for="orderType" title="plugins.generic.browseBySection.browseByOrder"}
+		{fbvElement type="select" id="browseByOrder" from=$orderTypes selected=$browseByOrder size=$fbvStyles.size.SMALL}
+	{/fbvFormSection}
 </div>
