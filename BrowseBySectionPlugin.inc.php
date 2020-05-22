@@ -202,7 +202,6 @@ class BrowseBySectionPlugin extends GenericPlugin {
 		$section->setData('browseByEnabled', $sectionForm->getData('browseByEnabled'));
 		$section->setData('browseByDescription', $sectionForm->getData('browseByDescription'));
 		$section->setData('browseByOrder', $sectionForm->getData('browseByOrder'));
-		$test = $section->getData('browseByOrder');
 		// Force a valid browseByPath
 		$browseByPath = $sectionForm->getData('browseByPath') ? $sectionForm->getData('browseByPath') : '';
 		if (empty($browseByPath)) {
