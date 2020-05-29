@@ -126,6 +126,29 @@ class BrowseBySectionHandler extends Handler {
 				}
 			}
 		}
+		$articleGroups = array();
+		if ($orderBy === 'title') {
+			// segment into groups alphabetically
+			$key = '';
+			$group = array();
+			foreach ($publishedArticles as $article) {
+				$newkey = mb_substr($article->getLocalizedTitle(), 0, 1);	
+				if ($newkey !== $key) {
+					if (count($group)) {
+						$articleGroups[] = array('key' => $key, 'articles' => $group);
+					}
+					$group = array();
+					$key = $newkey;
+				}
+				$group[] = $article;
+			}
+			if (count($group)) {
+				$articleGroups[] = array('key' => $key, 'articles' => $group);
+			}
+		} else if (count($publishedArticles)) {
+			// one continuous group
+			$articleGroups[] = array('key' => null, 'articles' => $publishedArticles);
+		}
 
 		$issues = array();
 		if (!empty($publishedArticles)) {
@@ -152,7 +175,7 @@ class BrowseBySectionHandler extends Handler {
 			'section' => $section,
 			'sectionPath' => $sectionPath,
 			'sectionDescription' => $section->getLocalizedData('browseByDescription'),
-			'articles' => $publishedArticles,
+			'articleGroups' => $articleGroups,
 			'issues' => $issues,
 			'showingStart' => $showingStart,
 			'showingEnd' => $showingEnd,
