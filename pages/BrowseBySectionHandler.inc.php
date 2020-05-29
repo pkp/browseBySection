@@ -81,13 +81,13 @@ class BrowseBySectionHandler extends Handler {
 		}
 
 		$browseByOrder = $section->getData('browseByOrder');
-		$orderBy = $browseByOrder;
-		if (strpos($orderBy, 'title') !== false || !empty($orderBy)) {
+		// ordering defaults to datePublished DESC for backwards compatibility (if option is unset)
+		if (strpos($browseByOrder, 'title') !== false) {
 			$orderBy = 'title';
 		} else {
-			$orderBy = 'dateSubmitted';
+			$orderBy = 'datePublished';
 		}
-		if (strpos($browseByOrder, 'Asc') !== false || !empty($browseByOrder)) {
+		if (strpos($browseByOrder, 'Asc') !== false) {
 			$orderDir = 'ASC';
 		} else {
 			$orderDir = 'DESC';
