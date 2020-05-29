@@ -26,7 +26,6 @@
 	<message key="plugins.generic.browseBySection.browseByPerPageLabel">Items Per Page</message>
 	<message key="plugins.generic.browseBySection.browseByPerPageDescription">How many items should be displayed per page on your section archive.</message>
 	<message key="plugins.generic.browseBySection.browseByDescriptionLabel">Section Archive Description</message>
-	<message key="plugins.generic.browseBySection.browseByOrder">Options to sort by</message>
 
 	<!-- Section Navigation Menus -->
 	<message key="plugins.generic.browseBySection.navMenuItem">Section: {$name}</message>
