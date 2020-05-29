@@ -92,6 +92,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 		$fields[] = 'browseByEnabled';
 		$fields[] = 'browseByPath';
 		$fields[] = 'browseByPerPage';
+		$fields[] = 'browseByOrder';
 	}
 
 	/**
@@ -152,6 +153,14 @@ class BrowseBySectionPlugin extends GenericPlugin {
 			$sectionForm->setData('browseByPath', $section->getData('browseByPath'));
 			$sectionForm->setData('browseByPerPage', $section->getData('browseByPerPage'));
 			$sectionForm->setData('browseByDescription', $section->getData('browseByDescription'));
+			$orderTypes = array(
+				'titleAsc' => 'catalog.sortBy.titleAsc',
+				'titleDesc' => 'catalog.sortBy.titleDesc',
+				'datePubDesc' => 'catalog.sortBy.datePublishedDesc',
+				'datePubAsc' => 'catalog.sortBy.datePublishedAsc'
+			);
+			$sectionForm->setData('orderTypes', $orderTypes);
+			$sectionForm->setData('browseByOrder', $section->getData('browseByOrder'));
 		}
 	}
 
@@ -172,6 +181,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 		$sectionForm->setData('browseByPath', $request->getUserVar('browseByPath'));
 		$sectionForm->setData('browseByPerPage', $request->getUserVar('browseByPerPage'));
 		$sectionForm->setData('browseByDescription', $request->getUserVar('browseByDescription', null));
+		$sectionForm->setData('browseByOrder', $request->getUserVar('browseByOrder'));
 	}
 
 	/**
@@ -189,6 +199,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
 
 		$section->setData('browseByEnabled', $sectionForm->getData('browseByEnabled'));
 		$section->setData('browseByDescription', $sectionForm->getData('browseByDescription'));
+		$section->setData('browseByOrder', $sectionForm->getData('browseByOrder'));
 
 		// Force a valid browseByPath
 		$browseByPath = $sectionForm->getData('browseByPath') ? $sectionForm->getData('browseByPath') : '';

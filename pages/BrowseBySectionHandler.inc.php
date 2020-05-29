@@ -80,13 +80,26 @@ class BrowseBySectionHandler extends Handler {
 			$browseByPerPage = BROWSEBYSECTION_DEFAULT_PER_PAGE;
 		}
 
+		$browseByOrder = $section->getData('browseByOrder');
+		$orderBy = $browseByOrder;
+		if (strpos($orderBy, 'title') !== false) {
+			$orderBy = 'title';
+		} else {
+			$orderBy = 'dateSubmitted';
+		}
+		if (strpos($browseByOrder, 'Asc') !== false) {
+			$orderDir = 'ASC';
+		} else {
+			$orderDir = 'DESC';
+		}
 		import('classes.submission.Submission'); // Import status constants
 
 		$params = [
 			'contextId' => $contextId,
 			'count' => $browseByPerPage,
 			'offset' => $page ? ($page - 1) * $browseByPerPage : 0,
-			'orderBy' => 'datePublished',
+			'orderBy' => $orderBy,
+			'orderDirection' => $orderDir,
 			'sectionIds' => [(int) $section->getId()],
 			'status' => STATUS_PUBLISHED,
 		];
