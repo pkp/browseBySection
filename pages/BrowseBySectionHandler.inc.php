@@ -120,7 +120,9 @@ class BrowseBySectionHandler extends Handler {
 			}, $submissions);
 			$sectionPublishedArticlesDao = DAORegistry::getDAO('SectionPublishedArticlesDAO');
 			foreach ($submissionIds as $sIds) {
-				$publishedArticles[] = $sectionPublishedArticlesDao->getBySubmissionId($sIds);
+				if ($publishedArticle = array_pop($sectionPublishedArticlesDao->getPublishedArticlesByIds(array($sIds)))) {
+					$publishedArticles[] = $publishedArticle;
+				}
 			}
 		}
 
