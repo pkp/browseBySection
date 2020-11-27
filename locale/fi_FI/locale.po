@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-11-27T16:39:33+00:00\n"
+"PO-Revision-Date: 2020-11-27T16:39:33+00:00\n"
+"Language: \n"
+
+msgid "plugins.generic.browseBySection.name"
+msgstr "Selaa osaston mukaan"
+
+msgid "plugins.generic.browseBySection.description"
+msgstr "Salli sisällön selaus osaston mukaan."
+
+msgid "plugins.generic.browseBySection.emptySection"
+msgstr "Tässä osastossa ei ole julkaistu vielä mitään."
+
+msgid "plugins.generic.browseBySection.browsingLabel"
+msgstr "Osaston selaustoiminto"
+
+msgid "plugins.generic.browseBySection.enableBrowsing"
+msgstr "Ota osastoa koskeva julkinen arkisto käyttöön."
+
+msgid "plugins.generic.browseBySection.browseByPathLabel"
+msgstr "Osaston URL-polku"
+
+msgid "plugins.generic.browseBySection.browseByPathDescription"
+msgstr "Muokkaa osaston julkista polkua. Polku saa sisältää vain kirjaimia ja numeroita, ei skandinaavisia kirjaimia tai muita erikoismerkkejä. Käytä tavuviivaa (-) välilyönnin sijaan. Esimerkiksi: katsaukset-ja-raportit."
+
+msgid "plugins.generic.browseBySection.browseByPerPageLabel"
+msgstr "Kohdetta per sivu"
+
+msgid "plugins.generic.browseBySection.browseByPerPageDescription"
+msgstr "Montako kohdetta näytetään osaston julkisella arkistosivulla."
+
+msgid "plugins.generic.browseBySection.browseByDescriptionLabel"
+msgstr "Osaston arkiston kuvaus"
+
+msgid "plugins.generic.browseBySection.navMenuItem"
+msgstr "Osasto: {$name}"
+
+msgid "plugins.generic.browseBySection.navMenuItem.description"
+msgstr "Linkki osaston julkiseen arkistoon."
