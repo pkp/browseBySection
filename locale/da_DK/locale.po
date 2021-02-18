@@ -1,2 +1,55 @@
 msgid ""
-msgstr "X-Generator: Weblate\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit"
+msgstr ""
+"PO-Revision-Date: 2021-02-19 09:54+0000\n"
+"Last-Translator: Niels Erik Frederiksen <nef@kb.dk>\n"
+"Language-Team: Danish <http://translate.pkp.sfu.ca/projects/plugins/"
+"browseBySection/da_DK/>\n"
+"Language: da_DK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.9.1\n"
+
+msgid "plugins.generic.browseBySection.navMenuItem.description"
+msgstr ""
+"Link til et browse-aktiveret arkiv over denne sections publicerede "
+"indsendelser."
+
+msgid "plugins.generic.browseBySection.navMenuItem"
+msgstr "Sektion: {$name}"
+
+msgid "plugins.generic.browseBySection.browseByDescriptionLabel"
+msgstr "Sektionsarkiv-beskrivelse"
+
+msgid "plugins.generic.browseBySection.browseByPerPageDescription"
+msgstr "Hvor mange elementer (punkter) skal vises per side i dit sektionsarkiv."
+
+msgid "plugins.generic.browseBySection.browseByPerPageLabel"
+msgstr "Elementer (punkter) per side"
+
+msgid "plugins.generic.browseBySection.browseByPathDescription"
+msgstr ""
+"Tilpas URL-stien på dit websted, hvor læsere kan gennemse dette "
+"sektionsarkiv. Det må kun indeholde bogstaver og tal. Brug bindestreg (-) i "
+"stedet for mellemrum."
+
+msgid "plugins.generic.browseBySection.browseByPathLabel"
+msgstr "Sektion URL-sti"
+
+msgid "plugins.generic.browseBySection.enableBrowsing"
+msgstr ""
+"Aktivér et arkiv med alle de indsendelser, der er blevet publiceret i denne "
+"sektion."
+
+msgid "plugins.generic.browseBySection.browsingLabel"
+msgstr "Sektions-browsing"
+
+msgid "plugins.generic.browseBySection.emptySection"
+msgstr "Der er endnu ikke blevet publiceret noget i denne sektion."
+
+msgid "plugins.generic.browseBySection.description"
+msgstr "Tillad besøgende at browse i tidsskriftsindholdet efter sektion."
+
+msgid "plugins.generic.browseBySection.name"
+msgstr "Browse efter sektion"
