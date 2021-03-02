@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-02-25 15:54+0000\n"
+"PO-Revision-Date: 2021-03-03 15:54+0000\n"
 "Last-Translator: Teodora Fildishevska <t.fildishevska@gmail.com>\n"
 "Language-Team: Macedonian <http://translate.pkp.sfu.ca/projects/plugins/"
 "browseBySection/mk_MK/>\n"
@@ -27,3 +27,9 @@ msgid "plugins.generic.browseBySection.description"
 msgstr ""
 "Дозволете посетителите да пребаруваат низ содржината на списанието според "
 "секција."
+
+msgid "plugins.generic.browseBySection.navMenuItem"
+msgstr "Секција: {$name}"
+
+msgid "plugins.generic.browseBySection.browseByPathLabel"
+msgstr "УРЛ патека на секцијата"
