@@ -1,2 +1,52 @@
 msgid ""
-msgstr "X-Generator: Weblate\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit"
+msgstr ""
+"PO-Revision-Date: 2021-03-06 04:03+0000\n"
+"Last-Translator: Jordi LC <jordi.lacruz@uab.cat>\n"
+"Language-Team: Catalan <http://translate.pkp.sfu.ca/projects/plugins/"
+"browseBySection/ca_ES/>\n"
+"Language: ca_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.9.1\n"
+
+msgid "plugins.generic.browseBySection.navMenuItem.description"
+msgstr "Enllaçar a un arxiu navegable de treballs publicats en aquesta secció."
+
+msgid "plugins.generic.browseBySection.navMenuItem"
+msgstr "Secció: {$name}"
+
+msgid "plugins.generic.browseBySection.browseByDescriptionLabel"
+msgstr "Descripció de l'arxiu de secció"
+
+msgid "plugins.generic.browseBySection.browseByPerPageDescription"
+msgstr ""
+"Quants elements per pàgina s'haurien de mostrar en el vostre arxiu de secció."
+
+msgid "plugins.generic.browseBySection.browseByPerPageLabel"
+msgstr "Elements per pàgina"
+
+msgid "plugins.generic.browseBySection.browseByPathDescription"
+msgstr ""
+"Personalitzeu la ruta URL en el vostre lloc en la qual els lectors/ores "
+"poden navegar per aquest arxiu de secció. Aquesta només pot contenir lletres "
+"i números. Feu servir guionets (-) en lloc d'espais. Exemple: book-reviews."
+
+msgid "plugins.generic.browseBySection.browseByPathLabel"
+msgstr "Ruta URL de secció"
+
+msgid "plugins.generic.browseBySection.enableBrowsing"
+msgstr "Habilita un arxiu de totes les trameses publicades en aquesta secció."
+
+msgid "plugins.generic.browseBySection.browsingLabel"
+msgstr "Navegació per secció"
+
+msgid "plugins.generic.browseBySection.emptySection"
+msgstr "Encara no s'ha publicat res en aquesta secció."
+
+msgid "plugins.generic.browseBySection.description"
+msgstr "Permet als visitants navegar pel contingut de la revista per seccions."
+
+msgid "plugins.generic.browseBySection.name"
+msgstr "Navegar per secció"
