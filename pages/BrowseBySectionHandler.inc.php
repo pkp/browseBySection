@@ -125,7 +125,7 @@ class BrowseBySectionHandler extends Handler {
 			// segment into groups alphabetically
 			$key = '';
 			$group = array();
-			foreach ($publishedArticles as $article) {
+			foreach ($submissions as $article) {
 				$newkey = mb_substr($article->getLocalizedTitle(), 0, 1);	
 				if ($newkey !== $key) {
 					if (count($group)) {
@@ -139,9 +139,9 @@ class BrowseBySectionHandler extends Handler {
 			if (count($group)) {
 				$articleGroups[] = array('key' => $key, 'articles' => $group);
 			}
-		} else if (count($publishedArticles)) {
+		} else if (count($submissions)) {
 			// one continuous group
-			$articleGroups[] = array('key' => null, 'articles' => $publishedArticles);
+			$articleGroups[] = array('key' => null, 'articles' => $submissions);
 		}
 
 		$result = Services::get('issue')->getMany([
