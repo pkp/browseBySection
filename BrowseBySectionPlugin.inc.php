@@ -156,10 +156,10 @@ class BrowseBySectionPlugin extends GenericPlugin {
 			$sectionForm->setData('browseByPerPage', $section->getData('browseByPerPage'));
 			$sectionForm->setData('browseByDescription', $section->getData('browseByDescription'));
 			$orderTypes = array(
+				'datePubDesc' => 'catalog.sortBy.datePublishedDesc',
+				'datePubAsc' => 'catalog.sortBy.datePublishedAsc',
 				'titleAsc' => 'catalog.sortBy.titleAsc',
 				'titleDesc' => 'catalog.sortBy.titleDesc',
-				'datePubDesc' => 'catalog.sortBy.datePublishedDesc',
-				'datePubAsc' => 'catalog.sortBy.datePublishedAsc'
 			);
 			$sectionForm->setData('orderTypes', $orderTypes);
 			$sectionForm->setData('browseByOrder', $section->getData('browseByOrder'));
