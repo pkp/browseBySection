@@ -111,6 +111,7 @@ class BrowseBySectionHandler extends Handler {
 			exit;
 		}
 
+		$articleGroups = [];
 		$submissions = [];
 		$issueIds = [];
 		foreach ($submissionsIterator as $submission) {
@@ -118,6 +119,28 @@ class BrowseBySectionHandler extends Handler {
 			if ($submission->getCurrentPublication()->getData('issueId')) {
 				$issueIds[] = $submission->getCurrentPublication()->getData('issueId');
 			}
+		}
+		if ($orderBy === 'title') {
+			// segment groups alphabetically
+			$key = '';
+			$group = array();
+			foreach ($submissions as $article) {
+				$newkey = mb_substr($article->getLocalizedTitle(), 0, 1);	
+				if ($newkey !== $key) {
+					if (count($group)) {
+						$articleGroups[] = array('key' => $key, 'articles' => $group);
+					}
+					$group = array();
+					$key = $newkey;
+				}
+				$group[] = $article;
+			}
+			if (count($group)) {
+				$articleGroups[] = array('key' => $key, 'articles' => $group);
+			}
+		} else {
+			// one continuous group
+			$articleGroups[] = array('key' => null, 'articles' => $submissions);
 		}
 
 		$issuesIterator = Services::get('issue')->getMany([
@@ -137,7 +160,7 @@ class BrowseBySectionHandler extends Handler {
 			'section' => $section,
 			'sectionPath' => $sectionPath,
 			'sectionDescription' => $section->getLocalizedData('browseByDescription'),
-			'articles' => $submissions,
+			'articleGroups' => $articleGroups,
 			'issues' => $issues,
 			'showingStart' => $showingStart,
 			'showingEnd' => $showingEnd,

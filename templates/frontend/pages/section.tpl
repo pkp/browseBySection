@@ -30,15 +30,22 @@
 		{$sectionDescription|strip_unsafe_html}
 	</div>
 
-	{if $articles|@count}
+	{if $articleGroups|@count}
+		{foreach from=$articleGroups item=group} 
+		{if $group.key}
+		<div class="cmp_article_header" id="browse_by_section_group_{$group.key|escape}">
+		{$group.key|escape}
+		</div>
+		{/if}
 		<ul class="cmp_article_list">
-			{foreach from=$articles item=article}
+			{foreach from=$group.articles item=article}
 				<li>
 					{* TODO remove section=null workaround. article_summary.tpl expects a specific section array. See issue_toc.tpl. *}
 					{include file="frontend/objects/article_summary.tpl" section=null showDatePublished=true hideGalleys=true}
 				</li>
 			{/foreach}
 		</ul>
+		{/foreach}
 
 		{* Pagination *}
 		{if $prevPage > 1}
