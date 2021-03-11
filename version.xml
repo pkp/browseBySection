@@ -13,8 +13,8 @@
 <version>
 	<application>browseBySection</application>
 	<type>plugins.generic</type>
-	<release>1.1.0.0</release>
-	<date>2020-05-29</date>
+	<release>1.2.0.0</release>
+	<date>2021-03-11</date>
 	<lazy-load>1</lazy-load>
 	<class>BrowseBySectionPlugin</class>
 </version>
