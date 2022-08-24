@@ -195,7 +195,8 @@ class BrowseBySectionPlugin extends GenericPlugin {
 	public function executeSectionFormFields($hookName, $args) {
 		$sectionDao = DAORegistry::getDAO('SectionDAO');
 		$sectionForm = $args[0];
-		$section = $sectionDao->getById($sectionForm->getSectionId(), Application::getRequest()->getContext()->getId());
+		$request = Application::get()->getRequest();
+		$section = $sectionDao->getById($sectionForm->getSectionId(), $request->getContext()->getId());
 
 		$section->setData('browseByEnabled', $sectionForm->getData('browseByEnabled'));
 		$section->setData('browseByDescription', $sectionForm->getData('browseByDescription'));
