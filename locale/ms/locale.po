@@ -1,9 +1,10 @@
 # Ga Ja Poh <gajapo2932@decorbuz.com>, 2021.
 # Studiorimau <studiorimau@gmail.com>, 2021.
+# Mohamad Shabilullah <shabilhamid91@gmail.com>, 2022.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-10-26 00:23+0000\n"
-"Last-Translator: Studiorimau <studiorimau@gmail.com>\n"
+"PO-Revision-Date: 2022-12-31 05:02+0000\n"
+"Last-Translator: Mohamad Shabilullah <shabilhamid91@gmail.com>\n"
 "Language-Team: Malay <http://translate.pkp.sfu.ca/projects/plugins/"
 "browseBySection/ms/>\n"
 "Language: ms\n"
@@ -11,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.9.1\n"
+"X-Generator: Weblate 4.13.1\n"
 
 msgid "plugins.generic.browseBySection.navMenuItem.description"
 msgstr "Pautan ke arkib karya terbitan yang dapat dilihat di bahagian ini."
@@ -20,7 +21,7 @@ msgid "plugins.generic.browseBySection.navMenuItem"
 msgstr "Bahagian: {$name}"
 
 msgid "plugins.generic.browseBySection.browseByDescriptionLabel"
-msgstr "Butiran Arkib  Bahagian"
+msgstr "Penerangan Arkib Bahagian"
 
 msgid "plugins.generic.browseBySection.browseByPerPageDescription"
 msgstr ""
