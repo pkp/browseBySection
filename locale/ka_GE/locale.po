@@ -1,0 +1,53 @@
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2021-04-08 09:55+0000\n"
+"Last-Translator: Dimitri Gogelia <dimitri.gogelia@iliauni.edu.ge>\n"
+"Language-Team: Georgian <http://translate.pkp.sfu.ca/projects/plugins/"
+"browseBySection/ka_GE/>\n"
+"Language: ka_GE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.9.1\n"
+
+msgid "plugins.generic.browseBySection.name"
+msgstr "დათვალიერება სექციის მიხედვით"
+
+msgid "plugins.generic.browseBySection.description"
+msgstr ""
+"სტუმრებს მიეცით საშუალება დაათვალიერონ ჟურნალის შინაარსი სექციების მიხედვით."
+
+msgid "plugins.generic.browseBySection.emptySection"
+msgstr "ამ განყოფილებაში ჯერ არაფერი გამოქვეყნებულა."
+
+msgid "plugins.generic.browseBySection.browsingLabel"
+msgstr "სექციის დათვალიერება"
+
+msgid "plugins.generic.browseBySection.enableBrowsing"
+msgstr "ჩართეთ ამ განყოფილებაში გამოქვეყნებული ყველა წარდგენის არქივი."
+
+msgid "plugins.generic.browseBySection.browseByPathLabel"
+msgstr "სექციის URL მისამართი"
+
+msgid "plugins.generic.browseBySection.browseByPathDescription"
+msgstr ""
+"მოირგეთ თქვენს საიტზე URL მისამართი, სადაც მკითხველს შეუძლია დაათვალიეროს ამ "
+"სექციის არქივი. ის შეიძლება შეიცავდეს მხოლოდ ასოებსა და ციფრებს. ჰარის "
+"ნაცვლად გამოიყენეთ ტირე (-). მაგალითი: წიგნის-მიმოხილვა."
+
+msgid "plugins.generic.browseBySection.browseByPerPageLabel"
+msgstr "ელემენტი თითო გვერდზე"
+
+msgid "plugins.generic.browseBySection.browseByPerPageDescription"
+msgstr ""
+"რამდენი ელემენტი უნდა იყოს ნაჩვენები თითო გვერდზე თქვენი სექციის არქივში."
+
+msgid "plugins.generic.browseBySection.browseByDescriptionLabel"
+msgstr "განყოფილების არქივის აღწერა"
+
+msgid "plugins.generic.browseBySection.navMenuItem"
+msgstr "სექცია: {$name}"
+
+msgid "plugins.generic.browseBySection.navMenuItem.description"
+msgstr "გამოქვეყნებული ნამუშევრების დათვალიერებული არქივის ბმული ამ სექციაში."

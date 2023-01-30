@@ -1,0 +1,51 @@
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2021-02-27 17:54+0000\n"
+"Last-Translator: Diego José Macêdo <diegojmacedo@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) <http://translate.pkp.sfu.ca/projects/"
+"plugins/browseBySection/pt_BR/>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.9.1\n"
+
+msgid "plugins.generic.browseBySection.navMenuItem.description"
+msgstr "Link para um acervo navegável de trabalhos publicados nesta seção."
+
+msgid "plugins.generic.browseBySection.navMenuItem"
+msgstr "Seção: {$name}"
+
+msgid "plugins.generic.browseBySection.browseByDescriptionLabel"
+msgstr "Descrição da seção de acervo"
+
+msgid "plugins.generic.browseBySection.browseByPerPageDescription"
+msgstr "Quantos itens devem ser exibidos por página na sua seção de acervo."
+
+msgid "plugins.generic.browseBySection.browseByPerPageLabel"
+msgstr "Itens por página"
+
+msgid "plugins.generic.browseBySection.browseByPathDescription"
+msgstr ""
+"Personalize o caminho da URL em seu site onde os leitores podem navegar "
+"nesta seção de acervo. Ele pode conter apenas letras e números. Use hifens "
+"(-) em vez de espaços. Exemplo: book-reviews."
+
+msgid "plugins.generic.browseBySection.browseByPathLabel"
+msgstr "Caminho da URL da seção"
+
+msgid "plugins.generic.browseBySection.enableBrowsing"
+msgstr "Ativar um acervo de todas as submissões publicadas nesta seção."
+
+msgid "plugins.generic.browseBySection.browsingLabel"
+msgstr "Navegação por seção"
+
+msgid "plugins.generic.browseBySection.emptySection"
+msgstr "Nada foi publicado nesta seção ainda."
+
+msgid "plugins.generic.browseBySection.description"
+msgstr "Permite que os visitantes naveguem pelo conteúdo da revista por seção."
+
+msgid "plugins.generic.browseBySection.name"
+msgstr "Navegar por seção"

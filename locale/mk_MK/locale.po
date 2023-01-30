@@ -1,0 +1,54 @@
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2021-03-06 04:03+0000\n"
+"Last-Translator: Teodora Fildishevska <t.fildishevska@gmail.com>\n"
+"Language-Team: Macedonian <http://translate.pkp.sfu.ca/projects/plugins/"
+"browseBySection/mk_MK/>\n"
+"Language: mk_MK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n==1 || n%10==1 ? 0 : 1;\n"
+"X-Generator: Weblate 3.9.1\n"
+
+msgid "plugins.generic.browseBySection.name"
+msgstr "Пребарувајте според оддел"
+
+msgid "plugins.generic.browseBySection.enableBrowsing"
+msgstr "Овозможете архива на сите поднесоци објавени во овој оддел."
+
+msgid "plugins.generic.browseBySection.browsingLabel"
+msgstr "Пребарување според оддел"
+
+msgid "plugins.generic.browseBySection.emptySection"
+msgstr "Се уште нема објави во овој оддел."
+
+msgid "plugins.generic.browseBySection.description"
+msgstr ""
+"Дозволете посетителите да пребаруваат низ содржината на списанието според "
+"оддел."
+
+msgid "plugins.generic.browseBySection.navMenuItem"
+msgstr "Секција: {$name}"
+
+msgid "plugins.generic.browseBySection.browseByPathLabel"
+msgstr "УРЛ патека на одделот"
+
+msgid "plugins.generic.browseBySection.navMenuItem.description"
+msgstr "Линк кон архива за пребарување со објавени трудови во овој оддел."
+
+msgid "plugins.generic.browseBySection.browseByDescriptionLabel"
+msgstr "Опис на архивата на оддели"
+
+msgid "plugins.generic.browseBySection.browseByPerPageDescription"
+msgstr ""
+"Колку елементи да бидат прикажани по страница на вашата архива на оддели."
+
+msgid "plugins.generic.browseBySection.browseByPerPageLabel"
+msgstr "Елементи по страница"
+
+msgid "plugins.generic.browseBySection.browseByPathDescription"
+msgstr ""
+"Прилагодете ја УРЛ патеката на вашиот сајт каде читателите можат да ја "
+"пребаруваат архивата на оддели. Може да содржи само букви и бројки. "
+"Користете цртички (-) наместо празен простор. Пример: рецензии-на-книга."

@@ -1,0 +1,59 @@
+# Cyril Kamburov <cc@intermedia.bg>, 2022.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2022-03-27 15:56+0000\n"
+"Last-Translator: Cyril Kamburov <cc@intermedia.bg>\n"
+"Language-Team: Bulgarian <http://translate.pkp.sfu.ca/projects/plugins/"
+"browseBySection/bg_BG/>\n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.9.1\n"
+
+msgid "plugins.generic.browseBySection.navMenuItem.description"
+msgstr ""
+"Връзка към архив с публикувани произведения, който може да се преглежда в "
+"този раздел."
+
+msgid "plugins.generic.browseBySection.navMenuItem"
+msgstr "Раздел: {$name}"
+
+msgid "plugins.generic.browseBySection.browseByDescriptionLabel"
+msgstr "Описание на архива на раздела"
+
+msgid "plugins.generic.browseBySection.browseByPerPageDescription"
+msgstr ""
+"Колко елемента трябва да се показват на страница във вашия архив на "
+"разделите."
+
+msgid "plugins.generic.browseBySection.browseByPerPageLabel"
+msgstr "Елементи на страница"
+
+msgid "plugins.generic.browseBySection.browseByPathDescription"
+msgstr ""
+"Персонализирайте URL адреса на вашия сайт, където читателите могат да "
+"преглеждат архива на този раздел. Може да съдържа само букви и цифри. "
+"Използвайте тирета (-) вместо интервали. Пример: book-reviews."
+
+msgid "plugins.generic.browseBySection.browseByPathLabel"
+msgstr "URL адрес на раздела"
+
+msgid "plugins.generic.browseBySection.enableBrowsing"
+msgstr ""
+"Разрешаване на прегледа на архива на всички подадени материали, публикувани "
+"в този раздел."
+
+msgid "plugins.generic.browseBySection.browsingLabel"
+msgstr "Преглед на раздела"
+
+msgid "plugins.generic.browseBySection.emptySection"
+msgstr "Все още нищо не е публикувано в този раздел."
+
+msgid "plugins.generic.browseBySection.description"
+msgstr ""
+"Позволете на посетителите да разглеждат съдържанието на списанието по раздел."
+
+msgid "plugins.generic.browseBySection.name"
+msgstr "Преглед по раздел"

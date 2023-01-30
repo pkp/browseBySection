@@ -1,0 +1,51 @@
+# Edvin Erdtman <edvin.erdtman@liu.se>, 2021.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2021-09-13 08:15+0000\n"
+"Last-Translator: Edvin Erdtman <edvin.erdtman@liu.se>\n"
+"Language-Team: Swedish <http://translate.pkp.sfu.ca/projects/plugins/"
+"browseBySection/sv_SE/>\n"
+"Language: sv_SE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.9.1\n"
+
+msgid "plugins.generic.browseBySection.navMenuItem.description"
+msgstr "Länka till ett navigerbart arkiv för publicerade verk i denna sektion."
+
+msgid "plugins.generic.browseBySection.navMenuItem"
+msgstr "Sektion: {$name}"
+
+msgid "plugins.generic.browseBySection.browseByDescriptionLabel"
+msgstr "Beskrivning för sektionsarkiv"
+
+msgid "plugins.generic.browseBySection.browseByPerPageDescription"
+msgstr "Hur många element ska visas per sida i sektionsarkivet?"
+
+msgid "plugins.generic.browseBySection.browseByPerPageLabel"
+msgstr "Element per sida"
+
+msgid "plugins.generic.browseBySection.browseByPathDescription"
+msgstr ""
+"Redigera URL:en till sektionsarkivet. Den kan bara innehålla bokstäver och "
+"siffror. Använd '-' istället för mellanslag."
+
+msgid "plugins.generic.browseBySection.browseByPathLabel"
+msgstr "URL till sektion"
+
+msgid "plugins.generic.browseBySection.enableBrowsing"
+msgstr "Aktivera ett arkiv av alla bidrag som publicerats i denna sektion."
+
+msgid "plugins.generic.browseBySection.browsingLabel"
+msgstr "Sektionsnavigering"
+
+msgid "plugins.generic.browseBySection.emptySection"
+msgstr "Inget har publicerats i denna sektion än."
+
+msgid "plugins.generic.browseBySection.description"
+msgstr "Tillåt besökare att navigera i tidskriften efter sektion."
+
+msgid "plugins.generic.browseBySection.name"
+msgstr "Navigera efter sektion"
