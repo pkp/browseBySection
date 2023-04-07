@@ -14,6 +14,9 @@ msgstr ""
 msgid "plugins.generic.browseBySection.name"
 msgstr "Browse By Section"
 
+msgid "plugins.generic.browseBySection.orderBy"
+msgstr "Order By"
+
 msgid "plugins.generic.browseBySection.description"
 msgstr "Allow visitors to browse journal content by section."
 
