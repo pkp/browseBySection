@@ -1,9 +1,9 @@
 # Marie-Hélène Vézina [UdeMontréal] <marie-helene.vezina@umontreal.ca>, 2023.
+# Mathias Vitalis <mathias.vitalis@u-bordeaux.fr>, 2023.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-04-24 10:30+0000\n"
-"Last-Translator: Marie-Hélène Vézina [UdeMontréal] <marie-helene."
-"vezina@umontreal.ca>\n"
+"PO-Revision-Date: 2023-05-18 02:06+0000\n"
+"Last-Translator: Mathias Vitalis <mathias.vitalis@u-bordeaux.fr>\n"
 "Language-Team: French <http://translate.pkp.sfu.ca/projects/plugins/"
 "browseBySection/fr/>\n"
 "Language: fr\n"
@@ -23,13 +23,11 @@ msgstr ""
 msgid "plugins.generic.browseBySection.emptySection"
 msgstr "Rien n'a encore été publié dans cette rubrique."
 
-#, fuzzy
 msgid "plugins.generic.browseBySection.browsingLabel"
 msgstr "Parcours par rubrique"
 
-#, fuzzy
 msgid "plugins.generic.browseBySection.enableBrowsing"
-msgstr "Permet d'archiver toutes les soumissions publiées dans cette  rubrique."
+msgstr "Permet d'archiver toutes les soumissions publiées dans cette rubrique."
 
 msgid "plugins.generic.browseBySection.browseByPathLabel"
 msgstr "Chemin d'accès URL de la rubrique"
