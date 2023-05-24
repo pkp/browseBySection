@@ -1,17 +1,17 @@
 # Artashes Mirzoyan <amirzoyan@sci.am>, 2022.
-# Tigran Zargaryan <tigran@flib.sci.am>, 2022.
+# Tigran Zargaryan <tigran@flib.sci.am>, 2022, 2023.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-07-02 03:52+0000\n"
+"PO-Revision-Date: 2023-05-27 11:49+0000\n"
 "Last-Translator: Tigran Zargaryan <tigran@flib.sci.am>\n"
 "Language-Team: Armenian <http://translate.pkp.sfu.ca/projects/plugins/"
-"browseBySection/hy_AM/>\n"
-"Language: hy_AM\n"
+"browseBySection/hy/>\n"
+"Language: hy\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.9.1\n"
+"X-Generator: Weblate 4.13.1\n"
 
 msgid "plugins.generic.browseBySection.navMenuItem.description"
 msgstr "Հղում դեպի այս բաժնի հրապարակված աշխատանքների զննարկվող արխիվը:"
@@ -51,3 +51,6 @@ msgstr "Թույլ տվեք այցելուներին թերթել ամսագրի
 
 msgid "plugins.generic.browseBySection.name"
 msgstr "Թերթիր ըստ բաժնի"
+
+msgid "plugins.generic.browseBySection.orderBy"
+msgstr "Պատվիրել Ըստ"
