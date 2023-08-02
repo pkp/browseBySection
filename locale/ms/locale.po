@@ -1,10 +1,11 @@
 # Ga Ja Poh <gajapo2932@decorbuz.com>, 2021.
 # Studiorimau <studiorimau@gmail.com>, 2021.
 # Mohamad Shabilullah <shabilhamid91@gmail.com>, 2022.
+# Ahmad Irdha Mokhtar <airdham@icloud.com>, 2023.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-12-31 05:02+0000\n"
-"Last-Translator: Mohamad Shabilullah <shabilhamid91@gmail.com>\n"
+"PO-Revision-Date: 2023-08-03 14:58+0000\n"
+"Last-Translator: Ahmad Irdha Mokhtar <airdham@icloud.com>\n"
 "Language-Team: Malay <http://translate.pkp.sfu.ca/projects/plugins/"
 "browseBySection/ms/>\n"
 "Language: ms\n"
@@ -54,3 +55,6 @@ msgstr "Belum ada yang diterbitkan dalam bahagian ini."
 
 msgid "plugins.generic.browseBySection.name"
 msgstr "Cari Mengikut Bahagian"
+
+msgid "plugins.generic.browseBySection.orderBy"
+msgstr "Susunan Dengan"
