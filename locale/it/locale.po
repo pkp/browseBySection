@@ -1,8 +1,60 @@
 # Stefano Bolelli Gallevi <stefano.bolelli@unimi.it>, 2022.
+# Fulvio Delle Donne <fulviodelledonne@libero.it>, 2023.
 msgid ""
 msgstr ""
+"PO-Revision-Date: 2023-12-22 23:31+0000\n"
+"Last-Translator: Fulvio Delle Donne <fulviodelledonne@libero.it>\n"
+"Language-Team: Italian <http://translate.pkp.sfu.ca/projects/plugins/"
+"browseBySection/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Weblate\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18.2\n"
+
+msgid "plugins.generic.browseBySection.orderBy"
+msgstr "Ordina per"
+
+msgid "plugins.generic.browseBySection.navMenuItem.description"
+msgstr "Link a un archivio sfogliabile dei lavori pubblicati in questa sezione."
+
+msgid "plugins.generic.browseBySection.name"
+msgstr "Naviga per sezione"
+
+msgid "plugins.generic.browseBySection.description"
+msgstr ""
+"Permetti al visitatore di navigare il contenuto della rivista per sezione."
+
+msgid "plugins.generic.browseBySection.emptySection"
+msgstr "Ancora non è stato pubblicato nulla in questa sezione."
+
+msgid "plugins.generic.browseBySection.browsingLabel"
+msgstr "Navigazione delle sezioni"
+
+msgid "plugins.generic.browseBySection.enableBrowsing"
+msgstr "Attiva un archivio di tutti i contributi pubblicati in questa sezione."
+
+msgid "plugins.generic.browseBySection.browseByPathLabel"
+msgstr "Percorso URL della sezione"
+
+msgid "plugins.generic.browseBySection.browseByPathDescription"
+msgstr ""
+"Personalizzate il percorso URL sul vostro sito dove i lettori possono "
+"consultare l'archivio di questa sezione. Può contenere solo lettere e "
+"numeri. Utilizzare i trattini (-) al posto degli spazi. Esempio: book-"
+"reviews."
+
+msgid "plugins.generic.browseBySection.browseByPerPageLabel"
+msgstr "Articoli per pagina"
+
+msgid "plugins.generic.browseBySection.browseByPerPageDescription"
+msgstr ""
+"Quanti articoli devono essere visualizzati per pagina nell'archivio di "
+"sezione."
+
+msgid "plugins.generic.browseBySection.browseByDescriptionLabel"
+msgstr "Descrizione Sezione Archivio"
+
+msgid "plugins.generic.browseBySection.navMenuItem"
+msgstr "Sezione: {$name}"
