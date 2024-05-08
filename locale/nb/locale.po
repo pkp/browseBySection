@@ -1,8 +1,65 @@
 # Tormod Strømme <tormod.stromme@uib.no>, 2022.
+# Johanna Skaug <johanna.skaug@ub.uio.no>, 2024.
 msgid ""
 msgstr ""
-"Language: nb_NO\n"
+"PO-Revision-Date: 2024-05-08 19:30+0000\n"
+"Last-Translator: Johanna Skaug <johanna.skaug@ub.uio.no>\n"
+"Language-Team: Norwegian Bokmål <http://translate.pkp.sfu.ca/projects/"
+"plugins/browseBySection/nb_NO/>\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Weblate\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18.2\n"
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.name"
+msgstr "Bla gjennom etter tidskriftseksjon"
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.emptySection"
+msgstr "Ingenting har blitt publisert i denne tidsskriftseksjonen ennå."
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.browseByPathLabel"
+msgstr "Lenke til tidsskriftseksjonen"
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.browseByPerPageLabel"
+msgstr "Antall per side"
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.browseByPerPageDescription"
+msgstr ""
+"Hvor mange innleveringer skal vises per side i tidsskriftseksjonsarkivet?"
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.browseByDescriptionLabel"
+msgstr "Beskrivelse av tidsskriftseksjonsarkivet"
+
+msgid "plugins.generic.browseBySection.navMenuItem"
+msgstr "Tidsskriftseksjon: {$name}"
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.navMenuItem.description"
+msgstr ""
+"Lenke til et arkiv over publiserte innleveringer i denne tidsskriftseksjonen."
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.orderBy"
+msgstr "Ranger etter"
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.description"
+msgstr "Tillatt besøkende å browse i tidsskriftet etter tidsskiftseksjon"
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.browsingLabel"
+msgstr "Tidsskriftseksjons-browsing"
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.enableBrowsing"
+msgstr ""
+"Aktiver et arkiv over alle innleveringer publisert i denne "
+"tidsskriftseksjonen."
