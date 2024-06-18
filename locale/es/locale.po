@@ -1,19 +1,19 @@
-# Jordi LC <jordi.lacruz@uab.cat>, 2021.
+# Jordi LC <jordi.lacruz@uab.cat>, 2021, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-27T16:39:33+00:00\n"
-"PO-Revision-Date: 2021-08-04 13:04+0000\n"
+"PO-Revision-Date: 2023-05-27 11:49+0000\n"
 "Last-Translator: Jordi LC <jordi.lacruz@uab.cat>\n"
 "Language-Team: Spanish <http://translate.pkp.sfu.ca/projects/plugins/"
-"browseBySection/es_ES/>\n"
-"Language: es_ES\n"
+"browseBySection/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.9.1\n"
+"X-Generator: Weblate 4.13.1\n"
 
 msgid "plugins.generic.browseBySection.name"
 msgstr "Navegar por sección"
@@ -54,3 +54,6 @@ msgstr "Navegación por sección"
 
 msgid "plugins.generic.browseBySection.emptySection"
 msgstr "Aún no se ha publicado nada en esta sección."
+
+msgid "plugins.generic.browseBySection.orderBy"
+msgstr "Ordenar por"

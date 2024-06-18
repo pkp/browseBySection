@@ -1,6 +1,7 @@
+# Diego José Macêdo <diegojmacedo@gmail.com>, 2023.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-02-27 17:54+0000\n"
+"PO-Revision-Date: 2023-05-27 11:49+0000\n"
 "Last-Translator: Diego José Macêdo <diegojmacedo@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <http://translate.pkp.sfu.ca/projects/"
 "plugins/browseBySection/pt_BR/>\n"
@@ -9,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.9.1\n"
+"X-Generator: Weblate 4.13.1\n"
 
 msgid "plugins.generic.browseBySection.navMenuItem.description"
 msgstr "Link para um acervo navegável de trabalhos publicados nesta seção."
@@ -49,3 +50,6 @@ msgstr "Permite que os visitantes naveguem pelo conteúdo da revista por seção
 
 msgid "plugins.generic.browseBySection.name"
 msgstr "Navegar por seção"
+
+msgid "plugins.generic.browseBySection.orderBy"
+msgstr "Ordenar por"

@@ -1,0 +1,68 @@
+# Osman Durmaz <osmandurmaz@hotmail.de>, 2023.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2023-06-04 18:49+0000\n"
+"Last-Translator: Osman Durmaz <osmandurmaz@hotmail.de>\n"
+"Language-Team: Azerbaijani <http://translate.pkp.sfu.ca/projects/plugins/"
+"browseBySection/az/>\n"
+"Language: az\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.13.1\n"
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.description"
+msgstr "Ziyarətçilərə jurnalın məzmununu bölmələrə görə görməyə icazə verin."
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.browseByPathDescription"
+msgstr ""
+"Oxucuların bu bölmənin arxivinə baxa bilməsi üçün saytınızdakı URL yolunu "
+"fərdiləşdirin. Tankda yalnız hərflər və rəqəmlər ola bilər. Boşluqlar "
+"əvəzinə hypens (-) istifadə edin. Misal: Kitab icmalları."
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.name"
+msgstr "Bölmə görünüşü"
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.orderBy"
+msgstr "İlə sırala"
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.emptySection"
+msgstr "Bu bölmədə hələ heç bir şey yayımlanmayıb."
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.browsingLabel"
+msgstr "Bölmələrə baxın"
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.enableBrowsing"
+msgstr "Bu bölmədə dərc olunan bütün materialların arxivini daxil edin."
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.browseByPathLabel"
+msgstr "Bölmə URL yolu"
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.browseByPerPageLabel"
+msgstr "Səhifə başına elementlər"
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.browseByPerPageDescription"
+msgstr "Bölmə arxivinizdə neçə element göstərilməlidir."
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.browseByDescriptionLabel"
+msgstr "Bölmə arxivinin təsviri"
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.navMenuItem"
+msgstr "Bölmə: {$name}"
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.navMenuItem.description"
+msgstr "Bu bölmədə dərc olunmuş əsərlərin görünən arxivinə keçid."

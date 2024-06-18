@@ -1,0 +1,16 @@
+# Bjorn-Ole Kamm <pkp_trans@b-ok.de>, 2024.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2024-05-06 02:30+0000\n"
+"Last-Translator: Bjorn-Ole Kamm <pkp_trans@b-ok.de>\n"
+"Language-Team: Japanese <http://translate.pkp.sfu.ca/projects/plugins/"
+"browseBySection/ja/>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.18.2\n"
+
+msgid "plugins.generic.browseBySection.name"
+msgstr "セクション別閲覧"
