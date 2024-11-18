@@ -2,7 +2,7 @@
 # Johanna Skaug <johanna.skaug@ub.uio.no>, 2024.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-05-08 19:30+0000\n"
+"PO-Revision-Date: 2024-06-26 09:39+0000\n"
 "Last-Translator: Johanna Skaug <johanna.skaug@ub.uio.no>\n"
 "Language-Team: Norwegian Bokmål <http://translate.pkp.sfu.ca/projects/"
 "plugins/browseBySection/nb_NO/>\n"
@@ -63,3 +63,10 @@ msgid "plugins.generic.browseBySection.enableBrowsing"
 msgstr ""
 "Aktiver et arkiv over alle innleveringer publisert i denne "
 "tidsskriftseksjonen."
+
+#, fuzzy
+msgid "plugins.generic.browseBySection.browseByPathDescription"
+msgstr ""
+"Tilpass URL-stien på nettstedet ditt der lesere kan bla gjennom dette "
+"seksjonsarkivet. Den kan kun inneholde bokstaver og tall. Bruk bindestreker "
+"(-) istedenfor mellomrom."
