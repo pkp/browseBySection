@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/browseBySection/pages/BrowseBySectionHandler.php
  *
- * Copyright (c) 2014-2023 Simon Fraser University
- * Copyright (c) 2003-2023 John Willinsky
+ * Copyright (c) 2014-2024 Simon Fraser University
+ * Copyright (c) 2003-2024 John Willinsky
  * Distributed under the GNU GPL v2 or later. For full terms see the file docs/COPYING.
  *
  * @class BrowseBySectionHandler
@@ -13,20 +13,25 @@
 
 namespace APP\plugins\generic\browseBySection\pages;
 
+use APP\handler\Handler;
+use PKP\core\JSONMessage;
+use PKP\core\PKPApplication;
+use PKP\core\PKPRequest;
 use PKP\security\authorization\ContextRequiredPolicy;
 use APP\security\authorization\OjsJournalMustPublishPolicy;
 use APP\facades\Repo;
-use APP\core\Services;
 use APP\template\TemplateManager;
 use PKP\plugins\PluginRegistry;
 use APP\submission\Collector as SubmissionCollector;
+use PKP\security\Role;
 
-class BrowseBySectionHandler extends \APP\handler\Handler {
-
+class BrowseBySectionHandler extends Handler
+{
     /**
      * @copydoc PKPHandler::authorize()
      */
-    function authorize($request, &$args, $roleAssignments) {
+    public function authorize($request, &$args, $roleAssignments)
+    {
         $this->addPolicy(new ContextRequiredPolicy($request));
         $this->addPolicy(new OjsJournalMustPublishPolicy($request));
         return parent::authorize($request, $args, $roleAssignments);
@@ -42,11 +47,12 @@ class BrowseBySectionHandler extends \APP\handler\Handler {
      * @param $request PKPRequest
      * @return null|JSONMessage
      */
-    public function view($args, $request) {
-        $sectionPath = isset($args[0]) ? $args[0] : null;
+    public function view($args, $request)
+    {
+        $sectionPath = $args[0] ?? null;
         $page = isset($args[1]) && ctype_digit($args[1]) ? (int) $args[1] : 1;
         $context = $request->getContext();
-        $contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
+        $contextId = $context ? $context->getId() : PKPApplication::CONTEXT_ID_NONE;
 
         // The page $arg can only contain an integer that's not 1. The first page
         // URL does not include page $arg
@@ -82,16 +88,11 @@ class BrowseBySectionHandler extends \APP\handler\Handler {
 
         $browseByOrder = $section->getData('browseByOrder');
         // ordering defaults to datePublished DESC for backwards compatibility (if option is unset)
-        if (strpos($browseByOrder, 'title') !== false) {
-            $orderBy = SubmissionCollector::ORDERBY_TITLE;
-        } else {
-            $orderBy = SubmissionCollector::ORDERBY_DATE_PUBLISHED;
-        }
-        if (strpos($browseByOrder, 'Asc') !== false) {
-            $orderDir = SubmissionCollector::ORDER_DIR_ASC;
-        } else {
-            $orderDir = SubmissionCollector::ORDER_DIR_DESC;
-        }
+
+        $orderBy = str_contains($browseByOrder, 'title') ?
+            SubmissionCollector::ORDERBY_TITLE : SubmissionCollector::ORDERBY_DATE_PUBLISHED;
+        $orderDir = str_contains($browseByOrder, 'Asc') ?
+            SubmissionCollector::ORDER_DIR_ASC : SubmissionCollector::ORDER_DIR_DESC;
 
         $offset = $page ? ($page - 1) * $browseByPerPage : 0;
 
@@ -122,31 +123,31 @@ class BrowseBySectionHandler extends \APP\handler\Handler {
         if ($orderBy === 'title') {
             // segment groups alphabetically
             $key = '';
-            $group = array();
+            $group = [];
             foreach ($submissions as $article) {
                 $newkey = mb_substr($article->getLocalizedTitle(), 0, 1);
                 if ($newkey !== $key) {
                     if (count($group)) {
-                        $articleGroups[] = array('key' => $key, 'articles' => $group);
+                        $articleGroups[] = ['key' => $key, 'articles' => $group];
                     }
-                    $group = array();
+                    $group = [];
                     $key = $newkey;
                 }
                 $group[] = $article;
             }
             if (count($group)) {
-                $articleGroups[] = array('key' => $key, 'articles' => $group);
+                $articleGroups[] = ['key' => $key, 'articles' => $group];
             }
         } else {
             // one continuous group
-            $articleGroups[] = array('key' => null, 'articles' => $submissions);
+            $articleGroups[] = ['key' => null, 'articles' => $submissions];
         }
 
         $issuesIterator = Repo::issue()->getCollector()
             ->filterByContextIds([$contextId])
             ->filterByPublished(true)
             ->filterByIssueIds(array_unique($issueIds))
-                   ->getMany();
+            ->getMany();
         $issues = iterator_to_array($issuesIterator);
 
         $showingStart = $offset + 1;
@@ -155,10 +156,14 @@ class BrowseBySectionHandler extends \APP\handler\Handler {
         $prevPage = $showingStart > 1 ? $page - 1 : null;
 
         $templateMgr = TemplateManager::getManager($request);
-        $templateMgr->assign(array(
+        $templateMgr->assign([
             'section' => $section,
             'sectionPath' => $sectionPath,
-            'authorUserGroups' => Repo::userGroup()->getCollector()->filterByRoleIds([\PKP\security\Role::ROLE_ID_AUTHOR])->filterByContextIds([$context->getId()])->getMany()->remember(),
+            'authorUserGroups' => Repo::userGroup()->getCollector()
+                ->filterByRoleIds([Role::ROLE_ID_AUTHOR])
+                ->filterByContextIds([$context->getId()])
+                ->getMany()
+                ->remember(),
             'sectionDescription' => $section->getLocalizedData('browseByDescription'),
             'articleGroups' => $articleGroups,
             'issues' => $issues,
@@ -167,11 +172,10 @@ class BrowseBySectionHandler extends \APP\handler\Handler {
             'total' => $total,
             'nextPage' => $nextPage,
             'prevPage' => $prevPage,
-        ));
+        ]);
 
         $plugin = PluginRegistry::getPlugin('generic', 'browsebysectionplugin');
 
         return $templateMgr->display($plugin->getTemplateResource('frontend/pages/section.tpl'));
     }
 }
-
