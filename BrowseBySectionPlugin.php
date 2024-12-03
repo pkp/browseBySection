@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/browseBySection/BrowseBySectionPlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2024 Simon Fraser University
+ * Copyright (c) 2003-2024 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class BrowseBySectionPlugin
@@ -15,30 +15,32 @@
 
 namespace APP\plugins\generic\browseBySection;
 
+use PKP\core\PKPApplication;
 use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;
 use PKP\config\Config;
 use APP\core\Application;
-use PKP\i18n\Locale;
-use PKP\db\DAORegistry;
 use APP\facades\Repo;
 use APP\plugins\generic\browseBySection\pages\BrowseBySectionHandler;
 
 define('BROWSEBYSECTION_DEFAULT_PER_PAGE', 30);
 define('BROWSEBYSECTION_NMI_TYPE', 'BROWSEBYSECTION_NMI_');
 
-class BrowseBySectionPlugin extends GenericPlugin {
-
+class BrowseBySectionPlugin extends GenericPlugin
+{
     /**
      * @copydoc Plugin::register
      */
-    public function register($category, $path, $mainContextId = NULL) {
+    public function register($category, $path, $mainContextId = null)
+    {
         $success = parent::register($category, $path);
-        if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) return $success;
+        if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) {
+            return $success;
+        }
         if ($success && $this->getEnabled()) {
             Hook::add('LoadHandler', [$this, 'loadPageHandler']);
             Hook::add('Templates::Manager::Sections::SectionForm::AdditionalMetadata', [$this, 'addSectionFormFields']);
-            Hook::add('Schema::get::section', function($hookName, $args) {
+            Hook::add('Schema::get::section', function ($hookName, $args) {
                 $schema = &$args[0];
 
                 $schema->properties->browseByEnabled = (object)[
@@ -67,8 +69,8 @@ class BrowseBySectionPlugin extends GenericPlugin {
 
                 $schema->properties->browseByDescription = (object)[
                             'type' => 'string',
-                    'apiSummary' => true,
-                    'multilingual' => true,
+                            'apiSummary' => true,
+                            'multilingual' => true,
                             'validation' => ['nullable']
                         ];
             });
@@ -86,14 +88,16 @@ class BrowseBySectionPlugin extends GenericPlugin {
     /**
      * @copydoc PKPPlugin::getDisplayName
      */
-    public function getDisplayName() {
+    public function getDisplayName()
+    {
         return __('plugins.generic.browseBySection.name');
     }
 
     /**
      * @copydoc PKPPlugin::getDescription
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return __('plugins.generic.browseBySection.description');
     }
 
@@ -108,7 +112,8 @@ class BrowseBySectionPlugin extends GenericPlugin {
      * ]
      * @return bool
      */
-    public function loadPageHandler($hookName, $args) {
+    public function loadPageHandler($hookName, $args)
+    {
         $page = $args[0];
         $handler =& $args[3];
 
@@ -134,7 +139,8 @@ class BrowseBySectionPlugin extends GenericPlugin {
      * ]
      * @return bool
      */
-    public function addSectionFormFields($hookName, $args) {
+    public function addSectionFormFields($hookName, $args)
+    {
         $smarty =& $args[1];
         $output =& $args[2];
         $output .= $smarty->fetch($this->getTemplateResource('controllers/grids/settings/section/form/sectionFormAdditionalFields.tpl'));
@@ -150,28 +156,30 @@ class BrowseBySectionPlugin extends GenericPlugin {
      *        @option SectionForm
      * ]
      */
-    public function initDataSectionFormFields($hookName, $args) {
+    public function initDataSectionFormFields($hookName, $args)
+    {
         $sectionForm = $args[0];
         $request = Application::get()->getRequest();
         $context = $request->getContext();
-        $contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
+        $contextId = $context ? $context->getId() : PKPApplication::CONTEXT_ID_NONE;
 
-        $section = Repo::section()->get($sectionForm->getSectionId(), $contextId);
+        $section = $sectionForm->getSectionId() ? Repo::section()->get($sectionForm->getSectionId(), $contextId) : null;
 
         if ($section) {
             $sectionForm->setData('browseByEnabled', $section->getData('browseByEnabled'));
             $sectionForm->setData('browseByPath', $section->getData('browseByPath'));
             $sectionForm->setData('browseByPerPage', $section->getData('browseByPerPage'));
             $sectionForm->setData('browseByDescription', $section->getData('browseByDescription'));
-            $orderTypes = [
-                'datePubDesc' => 'catalog.sortBy.datePublishedDesc',
-                'datePubAsc' => 'catalog.sortBy.datePublishedAsc',
-                'titleAsc' => 'catalog.sortBy.titleAsc',
-                'titleDesc' => 'catalog.sortBy.titleDesc',
-            ];
-            $sectionForm->setData('orderTypes', $orderTypes);
             $sectionForm->setData('browseByOrder', $section->getData('browseByOrder'));
         }
+
+        $orderTypes = [
+            'datePubDesc' => 'catalog.sortBy.datePublishedDesc',
+            'datePubAsc' => 'catalog.sortBy.datePublishedAsc',
+            'titleAsc' => 'catalog.sortBy.titleAsc',
+            'titleDesc' => 'catalog.sortBy.titleDesc',
+        ];
+        $sectionForm->setData('orderTypes', $orderTypes);
     }
 
     /**
@@ -183,7 +191,8 @@ class BrowseBySectionPlugin extends GenericPlugin {
      *        @option array User vars
      * ]
      */
-    public function readSectionFormFields($hookName, $args) {
+    public function readSectionFormFields($hookName, $args)
+    {
         $sectionForm =& $args[0];
         $request = Application::get()->getRequest();
 
@@ -202,7 +211,8 @@ class BrowseBySectionPlugin extends GenericPlugin {
      *        @option SectionForm
      * ]
      */
-    public function executeSectionFormFields($hookName, $args) {
+    public function executeSectionFormFields($hookName, $args)
+    {
         $sectionForm = $args[0];
         $request = Application::get()->getRequest();
         $section = Repo::section()->get($sectionForm->getSectionId(), $request->getContext()->getId());
@@ -214,7 +224,7 @@ class BrowseBySectionPlugin extends GenericPlugin {
         // Force a valid browseByPath
         $browseByPath = $sectionForm->getData('browseByPath') ? $sectionForm->getData('browseByPath') : '';
         if (empty($browseByPath)) {
-            $browseByPath = strtolower($section->getTitle(Locale::getPrimaryLocale()));
+            $browseByPath = strtolower($section->getTitle($request->getContext()->getPrimaryLocale()));
         }
         $section->setData('browseByPath', preg_replace('/[^A-Za-z0-9-_]/', '', str_replace(' ', '-', $browseByPath)));
 
@@ -236,11 +246,12 @@ class BrowseBySectionPlugin extends GenericPlugin {
      *        @option array Existing menu item types
      * ]
      */
-    public function addMenuItemTypes($hookName, $args) {
+    public function addMenuItemTypes($hookName, $args)
+    {
         $types =& $args[0];
         $request = Application::get()->getRequest();
         $context = $request->getContext();
-        $contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
+        $contextId = $context ? $context->getId() : PKPApplication::CONTEXT_ID_NONE;
 
         $sections = Repo::section()->getCollector()->filterByContextIds([$contextId])->getMany();
 
@@ -262,29 +273,33 @@ class BrowseBySectionPlugin extends GenericPlugin {
      *        @option NavigationMenuItem
      * ]
      */
-    public function setMenuItemDisplayDetails($hookName, $args) {
+    public function setMenuItemDisplayDetails($hookName, $args)
+    {
         $navigationMenuItem =& $args[0];
         $typePrefixLength = strlen(BROWSEBYSECTION_NMI_TYPE);
 
         if (substr($navigationMenuItem->getType(), 0, $typePrefixLength) === BROWSEBYSECTION_NMI_TYPE) {
             $request = Application::get()->getRequest();
             $context = $request->getContext();
-            $contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
+            $contextId = $context ? $context->getId() : PKPApplication::CONTEXT_ID_NONE;
             $sectionId = substr($navigationMenuItem->getType(), $typePrefixLength);
             $section = Repo::section()->get($sectionId, $contextId);
-            if (!$section->getData('browseByEnabled')) {
-                $navigationMenuItem->setIsDisplayed(false);
-            } else {
-                $sectionPath = $section->getData('browseByPath') ? $section->getData('browseByPath') : $sectionId;
-                $dispatcher = $request->getDispatcher();
-                $navigationMenuItem->setUrl($dispatcher->url(
-                    $request,
-                    ROUTE_PAGE,
-                    null,
-                    'section',
-                    'view',
-                    htmlspecialchars($sectionPath)
-                ));
+
+            if ($section) {
+                if (!$section->getData('browseByEnabled')) {
+                    $navigationMenuItem->setIsDisplayed(false);
+                } else {
+                    $sectionPath = $section->getData('browseByPath') ? $section->getData('browseByPath') : $sectionId;
+                    $dispatcher = $request->getDispatcher();
+                    $navigationMenuItem->setUrl($dispatcher->url(
+                        $request,
+                        PKPApplication::ROUTE_PAGE,
+                        null,
+                        'section',
+                        'view',
+                        htmlspecialchars($sectionPath)
+                    ));
+                }
             }
         }
     }
@@ -296,14 +311,17 @@ class BrowseBySectionPlugin extends GenericPlugin {
      * @param $args array
      * @return boolean
      */
-    function addSitemapURLs($hookName, $args) {
+    public function addSitemapURLs($hookName, $args)
+    {
         $doc = $args[0];
         $rootNode = $doc->documentElement;
 
-        $request = Application::getRequest();
+        $request = Application::get()->getRequest();
         $context = $request->getContext();
         if ($context) {
-            $sections = Repo::section()->getCollector()->filterByContextIds([$context->getId()])->getMany();
+            $sections = Repo::section()->getCollector()
+                ->filterByContextIds([$context->getId()])
+                ->getMany();
             foreach ($sections as $section) {
                 if ($section->getData('browseByEnabled')) {
                     $sectionPath = $section->getData('browseByPath') ? $section->getData('browseByPath') : $section->getId();
@@ -317,4 +335,3 @@ class BrowseBySectionPlugin extends GenericPlugin {
         return false;
     }
 }
-

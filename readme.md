@@ -8,11 +8,15 @@ Install and activate this plugin from the plugin gallery in your [OJS](https://g
 
 Once activated, find the section you would like to browse by under **Settings > Journal > Sections**. Edit the section, enable the new **Section Browsing** option, and complete the details.
 
-You can now link to the section from any Navigation Menu by going to the **Settings > Website > Navigation Menus** page and creating a **Navigation Menu Item**.
+You can now link to the section from any Navigation Menu by going to **Settings > Website > Setup > Navigation** and creating a **Navigation Menu Item**.
 
 ## License
+
 This plugin is licensed under the GNU General Public License v2.
 
 ## Compatibility
 
-Use the [3.1.1 branch](https://github.com/pkp/browseBySection/tree/3.1.1) when running OJS 3.1.1.x.
+If the plugin is installed from GitHub, use the branch that is compatible with your OJS release:
+
+- Use the [3.3.0 branch](https://github.com/pkp/browseBySection/tree/stable-3_3_0) for OJS 3.3.0.x.
+- Use the [3.4.0 branch](https://github.com/pkp/browseBySection/tree/stable-3_4_0) for OJS 3.4.0.x.
