@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/browseBySection/BrowseBySectionPlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2024 Simon Fraser University
+ * Copyright (c) 2003-2024 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class BrowseBySectionPlugin
@@ -26,16 +26,16 @@ class BrowseBySectionPlugin extends GenericPlugin {
 		$success = parent::register($category, $path);
 		if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) return $success;
 		if ($success && $this->getEnabled()) {
-			HookRegistry::register('LoadHandler', array($this, 'loadPageHandler'));
-			HookRegistry::register('sectiondao::getAdditionalFieldNames', array($this, 'addSectionDAOFieldNames'));
-			HookRegistry::register('sectiondao::getLocaleFieldNames', array($this, 'addSectionDAOLocaleFieldNames'));
-			HookRegistry::register('Templates::Manager::Sections::SectionForm::AdditionalMetadata', array($this, 'addSectionFormFields'));
-			HookRegistry::register('sectionform::initdata', array($this, 'initDataSectionFormFields'));
-			HookRegistry::register('sectionform::readuservars', array($this, 'readSectionFormFields'));
-			HookRegistry::register('sectionform::execute', array($this, 'executeSectionFormFields'));
-			HookRegistry::register('NavigationMenus::itemTypes', array($this, 'addMenuItemTypes'));
-			HookRegistry::register('NavigationMenus::displaySettings', array($this, 'setMenuItemDisplayDetails'));
-			HookRegistry::register('SitemapHandler::createJournalSitemap', array($this, 'addSitemapURLs'));
+			HookRegistry::register('LoadHandler', [$this, 'loadPageHandler']);
+			HookRegistry::register('sectiondao::getAdditionalFieldNames', [$this, 'addSectionDAOFieldNames']);
+			HookRegistry::register('sectiondao::getLocaleFieldNames', [$this, 'addSectionDAOLocaleFieldNames']);
+			HookRegistry::register('Templates::Manager::Sections::SectionForm::AdditionalMetadata', [$this, 'addSectionFormFields']);
+			HookRegistry::register('sectionform::initdata', [$this, 'initDataSectionFormFields']);
+			HookRegistry::register('sectionform::readuservars', [$this, 'readSectionFormFields']);
+			HookRegistry::register('sectionform::execute', [$this, 'executeSectionFormFields']);
+			HookRegistry::register('NavigationMenus::itemTypes', [$this, 'addMenuItemTypes']);
+			HookRegistry::register('NavigationMenus::displaySettings', [$this, 'setMenuItemDisplayDetails']);
+			HookRegistry::register('SitemapHandler::createJournalSitemap', [$this, 'addSitemapURLs']);
 			$this->_registerTemplateResource();
 		}
 		return $success;
@@ -153,15 +153,16 @@ class BrowseBySectionPlugin extends GenericPlugin {
 			$sectionForm->setData('browseByPath', $section->getData('browseByPath'));
 			$sectionForm->setData('browseByPerPage', $section->getData('browseByPerPage'));
 			$sectionForm->setData('browseByDescription', $section->getData('browseByDescription'));
-			$orderTypes = array(
-				'datePubDesc' => 'catalog.sortBy.datePublishedDesc',
-				'datePubAsc' => 'catalog.sortBy.datePublishedAsc',
-				'titleAsc' => 'catalog.sortBy.titleAsc',
-				'titleDesc' => 'catalog.sortBy.titleDesc',
-			);
-			$sectionForm->setData('orderTypes', $orderTypes);
 			$sectionForm->setData('browseByOrder', $section->getData('browseByOrder'));
 		}
+
+		$orderTypes = [
+			'datePubDesc' => 'catalog.sortBy.datePublishedDesc',
+			'datePubAsc' => 'catalog.sortBy.datePublishedAsc',
+			'titleAsc' => 'catalog.sortBy.titleAsc',
+			'titleDesc' => 'catalog.sortBy.titleDesc',
+		];
+		$sectionForm->setData('orderTypes', $orderTypes);
 	}
 
 	/**
@@ -238,10 +239,10 @@ class BrowseBySectionPlugin extends GenericPlugin {
 
 		while ($section = $sections->next()) {
 			if ($section->getData('browseByEnabled')) {
-				$types[BROWSEBYSECTION_NMI_TYPE . $section->getId()] = array(
-					'title' => __('plugins.generic.browseBySection.navMenuItem', array('name' => $section->getLocalizedTitle())),
+				$types[BROWSEBYSECTION_NMI_TYPE . $section->getId()] = [
+					'title' => __('plugins.generic.browseBySection.navMenuItem', ['name' => $section->getLocalizedTitle()]),
 					'description' => __('plugins.generic.browseBySection.navMenuItem.description'),
-				);
+				];
 			}
 		}
 	}
@@ -265,19 +266,22 @@ class BrowseBySectionPlugin extends GenericPlugin {
 			$sectionId = substr($navigationMenuItem->getType(), $typePrefixLength);
 			$sectionDao = DAORegistry::getDAO('SectionDAO');
 			$section = $sectionDao->getById($sectionId, $contextId);
-			if (!$section->getData('browseByEnabled')) {
-				$navigationMenuItem->setIsDisplayed(false);
-			} else {
-				$sectionPath = $section->getData('browseByPath') ? $section->getData('browseByPath') : $sectionId;
-				$dispatcher = $request->getDispatcher();
-				$navigationMenuItem->setUrl($dispatcher->url(
-					$request,
-					ROUTE_PAGE,
-					null,
-					'section',
-					'view',
-					htmlspecialchars($sectionPath)
-				));
+
+			if ($section) {
+				if (!$section->getData('browseByEnabled')) {
+					$navigationMenuItem->setIsDisplayed(false);
+				} else {
+					$sectionPath = $section->getData('browseByPath') ? $section->getData('browseByPath') : $sectionId;
+					$dispatcher = $request->getDispatcher();
+					$navigationMenuItem->setUrl($dispatcher->url(
+						$request,
+						ROUTE_PAGE,
+						null,
+						'section',
+						'view',
+						htmlspecialchars($sectionPath)
+					));
+				}
 			}
 		}
 	}
@@ -289,11 +293,11 @@ class BrowseBySectionPlugin extends GenericPlugin {
 	 * @param $args array
 	 * @return boolean
 	 */
-	function addSitemapURLs($hookName, $args) {
+	public function addSitemapURLs($hookName, $args) {
 		$doc = $args[0];
 		$rootNode = $doc->documentElement;
 
-		$request = Application::getRequest();
+		$request = Application::get()->getRequest();
 		$context = $request->getContext();
 		if ($context) {
 			$sectionDao = DAORegistry::getDAO('SectionDAO');
@@ -311,4 +315,3 @@ class BrowseBySectionPlugin extends GenericPlugin {
 		return false;
 	}
 }
-

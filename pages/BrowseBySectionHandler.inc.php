@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/browseBySection/pages/BrowseBySectionHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2024 Simon Fraser University
+ * Copyright (c) 2003-2024 John Willinsky
  * Distributed under the GNU GPL v2 or later. For full terms see the file docs/COPYING.
  *
  * @class BrowseBySectionHandler
@@ -41,7 +41,7 @@ class BrowseBySectionHandler extends Handler {
 	 * @return null|JSONMessage
 	 */
 	public function view($args, $request) {
-		$sectionPath = isset($args[0]) ? $args[0] : null;
+		$sectionPath = $args[0] ?? null;
 		$page = isset($args[1]) && ctype_digit($args[1]) ? (int) $args[1] : 1;
 		$context = $request->getContext();
 		$contextId = $context ? $context->getId() : CONTEXT_ID_NONE;
@@ -123,24 +123,24 @@ class BrowseBySectionHandler extends Handler {
 		if ($orderBy === 'title') {
 			// segment groups alphabetically
 			$key = '';
-			$group = array();
+			$group = [];
 			foreach ($submissions as $article) {
-				$newkey = mb_substr($article->getLocalizedTitle(), 0, 1);	
+				$newkey = mb_substr($article->getLocalizedTitle(), 0, 1);
 				if ($newkey !== $key) {
 					if (count($group)) {
-						$articleGroups[] = array('key' => $key, 'articles' => $group);
+						$articleGroups[] = ['key' => $key, 'articles' => $group];
 					}
-					$group = array();
+					$group = [];
 					$key = $newkey;
 				}
 				$group[] = $article;
 			}
 			if (count($group)) {
-				$articleGroups[] = array('key' => $key, 'articles' => $group);
+				$articleGroups[] = ['key' => $key, 'articles' => $group];
 			}
 		} else {
 			// one continuous group
-			$articleGroups[] = array('key' => null, 'articles' => $submissions);
+			$articleGroups[] = ['key' => null, 'articles' => $submissions];
 		}
 
 		$issuesIterator = Services::get('issue')->getMany([
@@ -156,7 +156,7 @@ class BrowseBySectionHandler extends Handler {
 		$prevPage = $showingStart > 1 ? $page - 1 : null;
 
 		$templateMgr = TemplateManager::getManager($request);
-		$templateMgr->assign(array(
+		$templateMgr->assign([
 			'section' => $section,
 			'sectionPath' => $sectionPath,
 			'sectionDescription' => $section->getLocalizedData('browseByDescription'),
@@ -167,11 +167,10 @@ class BrowseBySectionHandler extends Handler {
 			'total' => $total,
 			'nextPage' => $nextPage,
 			'prevPage' => $prevPage,
-		));
+		]);
 
 		$plugin = PluginRegistry::getPlugin('generic', 'browsebysectionplugin');
 
 		return $templateMgr->display($plugin->getTemplateResource('frontend/pages/section.tpl'));
 	}
 }
-
