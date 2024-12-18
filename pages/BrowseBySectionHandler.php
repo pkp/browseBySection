@@ -125,7 +125,7 @@ class BrowseBySectionHandler extends Handler
             $key = '';
             $group = [];
             foreach ($submissions as $article) {
-                $newkey = mb_substr($article->getLocalizedTitle(), 0, 1);
+                $newkey = mb_substr($article->getCurrentPublication()->getLocalizedTitle(), 0, 1);
                 if ($newkey !== $key) {
                     if (count($group)) {
                         $articleGroups[] = ['key' => $key, 'articles' => $group];
