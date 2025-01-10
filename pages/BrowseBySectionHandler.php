@@ -13,17 +13,20 @@
 
 namespace APP\plugins\generic\browseBySection\pages;
 
+use APP\facades\Repo;
 use APP\handler\Handler;
+use APP\security\authorization\OjsJournalMustPublishPolicy;
+use APP\submission\Collector as SubmissionCollector;
+use APP\template\TemplateManager;
 use PKP\core\JSONMessage;
 use PKP\core\PKPApplication;
 use PKP\core\PKPRequest;
-use PKP\security\authorization\ContextRequiredPolicy;
-use APP\security\authorization\OjsJournalMustPublishPolicy;
-use APP\facades\Repo;
-use APP\template\TemplateManager;
 use PKP\plugins\PluginRegistry;
-use APP\submission\Collector as SubmissionCollector;
+use PKP\security\authorization\ContextRequiredPolicy;
 use PKP\security\Role;
+use PKP\submission\PKPSubmission;
+use PKP\userGroup\UserGroup;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BrowseBySectionHandler extends Handler
 {
@@ -52,18 +55,16 @@ class BrowseBySectionHandler extends Handler
         $sectionPath = $args[0] ?? null;
         $page = isset($args[1]) && ctype_digit($args[1]) ? (int) $args[1] : 1;
         $context = $request->getContext();
-        $contextId = $context ? $context->getId() : PKPApplication::CONTEXT_ID_NONE;
+        $contextId = $context ? $context->getId() : PKPApplication::SITE_CONTEXT_ID;
 
         // The page $arg can only contain an integer that's not 1. The first page
         // URL does not include page $arg
         if (isset($args[1]) && (!ctype_digit($args[1]) || $args[1] == 1)) {
-            $request->getDispatcher()->handle404();
-            exit;
+            throw new NotFoundHttpException();
         }
 
         if (!$sectionPath || !$contextId) {
-            $request->getDispatcher()->handle404();
-            exit;
+            throw new NotFoundHttpException();
         }
 
         $sections = Repo::section()->getCollector()->filterByContextIds([$contextId])->getMany();
@@ -77,8 +78,7 @@ class BrowseBySectionHandler extends Handler
         }
 
         if (!$sectionExists) {
-            $request->getDispatcher()->handle404();
-            exit;
+            throw new NotFoundHttpException();
         }
 
         $browseByPerPage = $section->getData('browseByPerPage');
@@ -99,7 +99,7 @@ class BrowseBySectionHandler extends Handler
         $collector = Repo::submission()->getCollector()
             ->filterByContextIds([$contextId])
             ->filterBySectionIds([$section->getId()])
-            ->filterByStatus([STATUS_PUBLISHED])
+            ->filterByStatus([PKPSubmission::STATUS_PUBLISHED])
             ->offset($offset)
             ->limit($browseByPerPage)
             ->orderBy($orderBy, $orderDir);
@@ -107,8 +107,7 @@ class BrowseBySectionHandler extends Handler
         $total = $collector->limit(null)->offset(null)->getCount();
 
         if ($page > 1 && !count($submissionsIterator)) {
-            $request->getDispatcher()->handle404();
-            exit;
+            throw new NotFoundHttpException();
         }
 
         $articleGroups = [];
@@ -125,13 +124,13 @@ class BrowseBySectionHandler extends Handler
             $key = '';
             $group = [];
             foreach ($submissions as $article) {
-                $newkey = mb_substr($article->getCurrentPublication()->getLocalizedTitle(), 0, 1);
-                if ($newkey !== $key) {
+                $newKey = mb_substr($article->getCurrentPublication()->getLocalizedTitle(), 0, 1);
+                if ($newKey !== $key) {
                     if (count($group)) {
                         $articleGroups[] = ['key' => $key, 'articles' => $group];
                     }
                     $group = [];
-                    $key = $newkey;
+                    $key = $newKey;
                 }
                 $group[] = $article;
             }
@@ -159,11 +158,9 @@ class BrowseBySectionHandler extends Handler
         $templateMgr->assign([
             'section' => $section,
             'sectionPath' => $sectionPath,
-            'authorUserGroups' => Repo::userGroup()->getCollector()
-                ->filterByRoleIds([Role::ROLE_ID_AUTHOR])
-                ->filterByContextIds([$context->getId()])
-                ->getMany()
-                ->remember(),
+            'authorUserGroups' => UserGroup::withRoleIds([Role::ROLE_ID_AUTHOR])
+                ->withContextIds([$context->getId()])
+                ->get(),
             'sectionDescription' => $section->getLocalizedData('browseByDescription'),
             'articleGroups' => $articleGroups,
             'issues' => $issues,

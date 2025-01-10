@@ -161,7 +161,7 @@ class BrowseBySectionPlugin extends GenericPlugin
         $sectionForm = $args[0];
         $request = Application::get()->getRequest();
         $context = $request->getContext();
-        $contextId = $context ? $context->getId() : PKPApplication::CONTEXT_ID_NONE;
+        $contextId = $context ? $context->getId() : PKPApplication::SITE_CONTEXT_ID;
 
         $section = $sectionForm->getSectionId() ? Repo::section()->get($sectionForm->getSectionId(), $contextId) : null;
 
@@ -281,7 +281,7 @@ class BrowseBySectionPlugin extends GenericPlugin
         if (substr($navigationMenuItem->getType(), 0, $typePrefixLength) === BROWSEBYSECTION_NMI_TYPE) {
             $request = Application::get()->getRequest();
             $context = $request->getContext();
-            $contextId = $context ? $context->getId() : PKPApplication::CONTEXT_ID_NONE;
+            $contextId = $context ? $context->getId() : PKPApplication::SITE_CONTEXT_ID;
             $sectionId = substr($navigationMenuItem->getType(), $typePrefixLength);
             $section = Repo::section()->get($sectionId, $contextId);
 
@@ -297,7 +297,7 @@ class BrowseBySectionPlugin extends GenericPlugin
                         null,
                         'section',
                         'view',
-                        htmlspecialchars($sectionPath)
+                        [htmlspecialchars($sectionPath)]
                     ));
                 }
             }
