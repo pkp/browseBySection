@@ -327,7 +327,7 @@ class BrowseBySectionPlugin extends GenericPlugin
                     $sectionPath = $section->getData('browseByPath') ? $section->getData('browseByPath') : $section->getId();
                     // Create and append sitemap XML "url" element
                     $url = $doc->createElement('url');
-                    $url->appendChild($doc->createElement('loc', htmlspecialchars($request->url($context->getPath(), 'section', 'view', $sectionPath), ENT_COMPAT, 'UTF-8')));
+                    $url->appendChild($doc->createElement('loc', htmlspecialchars($request->url($context->getPath(), 'section', 'view', [$sectionPath]), ENT_COMPAT, 'UTF-8')));
                     $rootNode->appendChild($url);
                 }
             }
