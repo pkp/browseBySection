@@ -5,7 +5,7 @@
  *
  * Copyright (c) 2014-2024 Simon Fraser University
  * Copyright (c) 2003-2024 John Willinsky
- * Distributed under the GNU GPL v2 or later. For full terms see the file docs/COPYING.
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class BrowseBySectionHandler
  * @brief Handle reader-facing router requests for the browse by section plugin
