@@ -1,11 +1,11 @@
 <?php
 
 /**
- * @file plugins/generic/browseBySection/BrowseBySectionPlugin.inc.php
+ * @file plugins/generic/browseBySection/BrowseBySectionPlugin.php
  *
  * Copyright (c) 2014-2024 Simon Fraser University
  * Copyright (c) 2003-2024 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class BrowseBySectionPlugin
  * @ingroup plugins_generic_browsebysection

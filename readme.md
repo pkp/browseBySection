@@ -12,7 +12,7 @@ You can now link to the section from any Navigation Menu by going to **Settings 
 
 ## License
 
-This plugin is licensed under the GNU General Public License v2.
+This plugin is licensed under the GNU General Public License v3.
 
 ## Compatibility
 
