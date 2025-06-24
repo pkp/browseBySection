@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2017 Simon Fraser University
  * Copyright (c) 2017 John Willinsky
- * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @brief Add fields for section browsing to the section edit form
  *
